@@ -13,15 +13,15 @@ def main():
     model = OllamaModel(constrained='--constrained' in sys.argv)
     report = {'platform':platform.platform(), 'python':platform.python_version(),
               'test_scope':'desktop local inference; NOT Android emulator or hardware validation',
-              'inputs':'synthetic; Tamil text unreviewed by a native speaker', 'health':model.health(),
+              'inputs':'synthetic; Spanish prototype; automated evaluation only', 'health':model.health(),
               'network_scope':'adapter restricted to loopback; full device network isolation not verified'}
     with tempfile.TemporaryDirectory() as d:
         path = str(Path(d)/'smoke.sqlite3')
         coach = Coach(model,path)
-        memory = coach.remember('coffee tasting','காபி சுவைத்தல்','Use this preferred term for the tasting activity.',True)
+        memory = coach.remember('coffee tasting','degustación de café','Use this preferred term for the tasting activity.',True)
         session = coach.start('duration')
         report['session'] = session
-        turn = coach.respond(session['id'],'காபி சுவைத்தல் 20 நிமிடங்கள் ஆகும். நீங்கள் எப்போது தொடங்க விரும்புகிறீர்கள்?')
+        turn = coach.respond(session['id'],'La degustación de café dura 20 minutos. ¿A qué hora les gustaría comenzar?')
         report['assessment'] = turn
         # Do not auto-approve an assessment as evidence of human review.
         report['progress_before_human_approval'] = coach.progress()
