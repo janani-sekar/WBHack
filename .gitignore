@@ -1,0 +1,21 @@
+# Reference material, private data, credentials, and large assets
+research/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store
+__pycache__/
+.venv/
+node_modules/
+dist/
+build/
+models/
+recordings/
+data/private/
+evaluation/private/
+*.gguf
+*.onnx
+*.tflite
+*.safetensors
