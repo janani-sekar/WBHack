@@ -46,13 +46,13 @@ SCORE = {'type': 'integer', 'minimum': 0, 'maximum': 2}
 SKILLS = ('duration', 'directions', 'expectations')
 SKILL = {'type': 'string', 'enum': list(SKILLS)}
 TURN = obj(guest_message=TEXT)
-ASSESSMENT = obj(strength_ta=TEXT, improvement_ta=TEXT, evidence_quote=TEXT,
+ASSESSMENT = obj(strength_local=TEXT, improvement_local=TEXT, evidence_quote=TEXT,
                  uncertain=BOOL, answers_request=SCORE, factual_accuracy=SCORE,
                  clarifies_unknowns=SCORE, next_step=SCORE)
 THEME = obj(kind={'type': 'string', 'enum': ['positive', 'concern', 'suggestion']},
-            explanation_ta=TEXT, evidence_quote=TEXT, skill=SKILL,
+            explanation_local=TEXT, evidence_quote=TEXT, skill=SKILL,
             training_relevant=BOOL)
-REVIEW = obj(translation_ta=TEXT, explanation_ta=TEXT, uncertain=BOOL,
+REVIEW = obj(translation_local=TEXT, explanation_local=TEXT, uncertain=BOOL,
              themes={'type': 'array', 'items': THEME, 'maxItems': 2})
 
 
