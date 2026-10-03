@@ -1,0 +1,102 @@
+{
+  "scope": "Exploratory synthetic language screen; no native-speaker validation",
+  "results": [
+    {
+      "language": "Spanish",
+      "source": "We loved the coffee tasting, but the directions were confusing.",
+      "result": {
+        "translation": "Amamos el café que probamos, pero las instrucciones eran confusas."
+      },
+      "metrics": {
+        "model": "qwen3:1.7b",
+        "elapsed_seconds": 1.044,
+        "output_tokens": 25,
+        "prompt_tokens": 77,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      }
+    },
+    {
+      "language": "Spanish",
+      "source": "The short tasting takes 20 minutes. I need to check whether tomorrow is available.",
+      "result": {
+        "translation": "El breve prueba se lleva a cabo en 20 minutos. Debo verificar si el próximo día está disponible."
+      },
+      "metrics": {
+        "model": "qwen3:1.7b",
+        "elapsed_seconds": 0.609,
+        "output_tokens": 30,
+        "prompt_tokens": 83,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      }
+    },
+    {
+      "language": "Hindi",
+      "source": "We loved the coffee tasting, but the directions were confusing.",
+      "result": {
+        "translation": "हम बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर्बाद बर"
+      },
+      "metrics": {
+        "model": "qwen3:1.7b",
+        "elapsed_seconds": 11.635,
+        "output_tokens": 607,
+        "prompt_tokens": 77,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      }
+    },
+    {
+      "language": "Hindi",
+      "source": "The short tasting takes 20 minutes. I need to check whether tomorrow is available.",
+      "result": {
+        "translation": "अपने आगमन के बाद 20 मिनट लेकर आएगा। मैं आगे बांटे जाने के बाद जांच करने के लिए आपके अनुमति के बाद जांच करेगा।"
+      },
+      "metrics": {
+        "model": "qwen3:1.7b",
+        "elapsed_seconds": 2.229,
+        "output_tokens": 108,
+        "prompt_tokens": 83,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      }
+    },
+    {
+      "language": "Tamil",
+      "source": "We loved the coffee tasting, but the directions were confusing.",
+      "result": {
+        "translation": "நாங்கள் காப்பியம் போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று போன்று ப"
+      },
+      "metrics": {
+        "model": "qwen3:1.7b",
+        "elapsed_seconds": 13.128,
+        "output_tokens": 694,
+        "prompt_tokens": 77,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      }
+    },
+    {
+      "language": "Tamil",
+      "source": "The short tasting takes 20 minutes. I need to check whether tomorrow is available.",
+      "result": {
+        "translation": "நெடுநொடிய பொருத்து கொண்டு இருக்கும். இந்த நாள் பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெருக்கு பெருக்கு போன்று பெர"
+      },
+      "metrics": {
+        "model": "qwen3:1.7b",
+        "elapsed_seconds": 13.151,
+        "output_tokens": 682,
+        "prompt_tokens": 83,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      }
+    }
+  ],
+  "assessment": "Spanish is the next candidate to validate, not accepted production support. Two translations per language only; Spanish grammatical/meaning errors remain. Tamil and Hindi outputs showed severe repetition/meaning loss. Existing application remains Tamil pending community/language decision."
+}

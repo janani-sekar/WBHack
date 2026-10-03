@@ -1,0 +1,47 @@
+{
+  "id": "616461eba79c41bf98895ee540b34722",
+  "request": "Help me practice explaining where guests should meet",
+  "decision": {
+    "tool": "start_practice",
+    "skill": "directions",
+    "lesson_id": "none",
+    "reason": "The request to practice explaining where guests should meet is relevant to the 'directions' skill, and no specific lesson ID is provided.",
+    "clarification": "None"
+  },
+  "metrics": {
+    "model": "qwen3:1.7b",
+    "elapsed_seconds": 4.706,
+    "output_tokens": 68,
+    "prompt_tokens": 525,
+    "constrained_profile": false,
+    "provenance": "real-local-model",
+    "android_verified": false
+  },
+  "result": {
+    "id": "9bf449cecb394759aa6fe05fc3d51bcd",
+    "skill": "directions",
+    "independent": false,
+    "reason": "Operator-selected practice",
+    "lesson_id": null,
+    "turns": [],
+    "guest_message": "We have reached the farm. Where should we meet you?",
+    "metrics": {
+      "model": "qwen3:1.7b",
+      "elapsed_seconds": 0.793,
+      "output_tokens": 21,
+      "prompt_tokens": 314,
+      "constrained_profile": false,
+      "provenance": "real-local-model",
+      "android_verified": false
+    }
+  },
+  "trace": [
+    "retrieve_local_context",
+    "choose_tool:start_practice",
+    "execute_allowed_tool",
+    "end"
+  ],
+  "harness": "langgraph",
+  "android_verified": false,
+  "test_scope": "Desktop synthetic run; NOT Android emulator/hardware validation"
+}

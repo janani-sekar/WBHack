@@ -1,0 +1,123 @@
+{
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.7",
+  "test_scope": "Desktop synthetic run; NOT Android emulator/hardware validation",
+  "inputs": "synthetic; Tamil text unreviewed by a native speaker",
+  "health": {
+    "runtime": "ollama",
+    "model": "qwen3:1.7b",
+    "model_installed": true,
+    "deployment": "desktop-development-harness",
+    "android_verified": false,
+    "constrained_profile": true
+  },
+  "network_scope": "adapter restricted to loopback; full device network isolation not verified",
+  "session": {
+    "id": "c098e73b11244eccbe086f419900e454",
+    "skill": "duration",
+    "independent": false,
+    "reason": "Operator-selected practice",
+    "lesson_id": null,
+    "turns": [],
+    "guest_message": "We only have thirty minutes. Can we still try the coffee?",
+    "metrics": {
+      "model": "qwen3:1.7b",
+      "elapsed_seconds": 11.486,
+      "output_tokens": 22,
+      "prompt_tokens": 440,
+      "constrained_profile": true,
+      "provenance": "real-local-model",
+      "android_verified": false
+    }
+  },
+  "assessment": {
+    "id": "4b9967312ca3436cbf47195d49a8e57d",
+    "response": "காபி சுவைத்தல் 20 நிமிடங்கள் ஆகும். நீங்கள் எப்போது தொடங்க விரும்புகிறீர்கள்?",
+    "guest_message": "We only have thirty minutes. Can we still try the coffee?",
+    "assessment": {
+      "strength_ta": "காபி சுவைத்தல் 20 நிமிடங்கள் ஆகும். நீங்கள் எப்போது தொடங்க விரும்புகிறீர்கள்?",
+      "improvement_ta": "நீங்கள் எப்போது தொடங்க விரும்புகிறீர்கள்? காபி சுவைத்தல் 20 நிமிடங்கள் ஆகும்.",
+      "evidence_quote": "காபி சுவைத்தல் 20 நிமிடங்கள் ஆகும். நீங்கள் எப்போது தொடங்க விரும்புகிறீர்கள்?",
+      "uncertain": false,
+      "answers_request": 2,
+      "factual_accuracy": 2,
+      "clarifies_unknowns": 2,
+      "next_step": 2
+    },
+    "status": "pending",
+    "metrics": {
+      "model": "qwen3:1.7b",
+      "elapsed_seconds": 80.089,
+      "output_tokens": 330,
+      "prompt_tokens": 643,
+      "constrained_profile": true,
+      "provenance": "real-local-model",
+      "android_verified": false
+    }
+  },
+  "progress_before_human_approval": {
+    "skills": [
+      {
+        "skill": "duration",
+        "sessions": 1,
+        "approved_attempts": 0,
+        "state": "not_assessed"
+      },
+      {
+        "skill": "directions",
+        "sessions": 0,
+        "approved_attempts": 0,
+        "state": "not_assessed"
+      },
+      {
+        "skill": "expectations",
+        "sessions": 0,
+        "approved_attempts": 0,
+        "state": "not_assessed"
+      }
+    ],
+    "recommended_skill": "directions",
+    "note": "Model assessments accepted by the operator; not an independently validated mastery score.",
+    "personalization": "approved-memory-and-rule-based-curriculum",
+    "weight_training": false
+  },
+  "review": {
+    "id": "6f8c7b836a6f4ad7b7953c1d1cf86766",
+    "original": "We loved the coffee tasting, but the directions were confusing.",
+    "interpretation": {
+      "translation_ta": "நாங்கள் காபி சுவைத்தல் போன்ற பெரிய பாதுஷ்டிக பாதுஷ்டிக பெயர்களை பயன்படுத்தினோம், காபி சுவைத்தல் போன்ற பெரிய பாதுஷ்டிக பாதுஷ்டிக பெயர்களை பயன்படுத்தினோம்",
+      "explanation_ta": "நாங்கள் காபி சுவைத்தல் போன்ற பெரிய பாதுஷ்டிக பாதுஷ்டிக பெயர்களை பயன்படுத்தினோம், காபி சுவைத்தல் போன்ற பெரிய பாதுஷ்டிக பாதுஷ்டிக பெயர்களை பயன்படுத்தினோம்",
+      "uncertain": true,
+      "themes": [
+        {
+          "kind": "positive",
+          "explanation_ta": "காபி சுவைத்தல் போன்ற பெரிய பாதுஷ்டிக பாதுஷ்டிக பெயர்களை பயன்படுத்தினோம்",
+          "evidence_quote": "We loved the coffee tasting",
+          "skill": "directions",
+          "training_relevant": false
+        },
+        {
+          "kind": "positive",
+          "explanation_ta": "காபி சுவைத்தல் போன்ற பெரிய பாதுஷ்டிக பாதுஷ்டிக பெயர்களை பயன்படுத்தினோம்",
+          "evidence_quote": "the directions were confusing.",
+          "skill": "directions",
+          "training_relevant": false
+        }
+      ]
+    },
+    "metrics": {
+      "model": "qwen3:1.7b",
+      "elapsed_seconds": 74.831,
+      "output_tokens": 654,
+      "prompt_tokens": 429,
+      "constrained_profile": true,
+      "provenance": "real-local-model",
+      "android_verified": false
+    },
+    "status": "unconfirmed",
+    "synthetic": null
+  },
+  "memory_survives_restart": true,
+  "memory_deleted": true,
+  "quality_verdict": "FAIL: Tamil semantics and coaching quality are not acceptable; slow desktop CPU surrogate."
+}
