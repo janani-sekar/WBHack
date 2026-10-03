@@ -17,7 +17,7 @@ The service is serial and intended for one local developer. It is not an interne
 | POST /sessions/{id}/next | `{}`; generate next guest turn after a response |
 | POST /sessions/{id}/assessment | `turn_id`, `approved`: true/false; recomputes progress |
 | GET /progress | Approved evidence, practice states, next suggested skill |
-| POST /reviews | `review`: source text; Tamil interpretation and exact source quotes |
+| POST /reviews | `review`: source text; Interpretation in the profile language and exact source quotes |
 | GET /reviews | Locally stored reviews |
 | POST /lessons | `review_id`, `theme_index` (zero-based), `approved: true` |
 | GET /lessons | Approved review-based training topics |
@@ -42,6 +42,8 @@ curl -s http://127.0.0.1:8765/reviews \
   -d '{"review":"We loved the coffee tasting, but the directions were confusing."}'
 ```
 
-The Tamil example is synthetic and not native-speaker validated. Assessment approval is an operator decision; do not automatically approve model judgments. An exact evidence quote validates traceability, not the correctness of the interpretation.
+The example is synthetic; language quality is evaluated automatically for this prototype. Assessment approval is an operator decision; do not automatically approve model judgments. An exact evidence quote validates traceability, not the correctness of the interpretation.
 
 Memory deletion removes future preference retrieval but does not erase historical session text; reset removes all learning/review records. SQLite deletion is logical, not guaranteed forensic erasure. No model weights are updated.
+
+Profile updates optionally accept `language`: `es` (default), `ta`, or `hi`. Localized output fields now use `_local`, not `_ta`. The prototype defaults to Spanish. Language codes are experimental, not a promise of quality.

@@ -33,3 +33,11 @@ Use separate local profiles where needed. Explain deletion and device-backup beh
 ## Model/runtime caveat
 Google's MediaPipe LLM guide describes high-end device optimization. A successful desktop or flagship demo is not proof of performance on an entry-level phone.
 https://developers.google.cn/edge/mediapipe/solutions/genai/llm_inference/android
+
+## Agentic architecture update
+
+Use the open-source LangGraph harness for the desktop reference implementation, with bounded Qwen tool selection, approved local memory, progress and review-derived lessons. The first agent entry point is implemented in `hospitality/agent.py`; existing HTTP routes remain explicit tools and are not yet a unified agent chat endpoint. See [agent design](AGENT.md) for the Android-native harness decision and remaining integration work. Personalization is stored context and curriculum adaptation, not model-weight training.
+
+## Current prototype language decision
+
+Spanish (`es`) is now the default, following the user's approval to use another language and proceed without a fluent-speaker study for the prototype. Existing Tamil references above describe the initial plan/results. This is automated/provisional evaluation, not native-speaker validation. The profile can select `es`, `ta` or `hi`; response keys are language-neutral (`strength_local`, `improvement_local`, `translation_local`, `explanation_local`, `reason_local`). Supported codes do not imply validated language quality. Historical evaluation JSON retains the original Tamil field names and outputs.
