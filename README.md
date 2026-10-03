@@ -2,7 +2,7 @@
 
 An offline, local-language practice coach for small tourism operators.
 
-**Status: working desktop AI backend with local Qwen inference, SQLite personalization, and automated tests. Android is the target; no Android app, frontend, emulator validation, or physical-device measurements yet. Initial model output failed semantic quality checks; Spanish is now the prototype default after a small automated comparison; language quality is still provisional.**
+**Status: working desktop AI backend with local Qwen inference, SQLite personalization, and automated tests. Android is the target. A separate [Android frontend scaffold](android/README.md) is present with fixed reference content; AI integration, emulator validation and physical-device measurements remain pending. Initial model output failed semantic quality checks; Spanish is now the prototype default after a small automated comparison; language quality is still provisional.**
 
 ## Run the AI backend
 
