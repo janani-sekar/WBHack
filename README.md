@@ -2,7 +2,41 @@
 
 An offline, local-language practice coach for small tourism operators.
 
-**Status: initial planning and submission materials. No working AI application, trained model, measured results, or validated local-language support is included yet.**
+**Status: working desktop AI backend with local Qwen inference, SQLite personalization, and automated tests. Android is the target; no Android app, frontend, emulator validation, or physical-device measurements yet. Initial model output failed semantic quality checks; Tamil output is experimental and requires native-speaker review.**
+
+## Run the AI backend
+
+Requires Python 3.10+ and Ollama. No Python package installation is needed.
+
+```sh
+ollama pull qwen3:1.7b
+# Start Ollama first if it is not running: ollama serve
+python3 -m hospitality.server
+```
+
+In another terminal:
+
+```sh
+curl http://127.0.0.1:8765/health
+python3 scripts/smoke.py
+python3 -m unittest discover -s tests -v
+python3 scripts/check_api.py
+```
+
+Model provisioning needs internet once. Inference is restricted to a loopback endpoint with no cloud fallback. [API and examples](docs/API.md). [Model and test status](docs/MODEL.md). This is a desktop development harness, not an Android deployment.
+
+## Run the bounded agent
+
+The optional **LangGraph** harness retrieves approved local memory/progress, asks Qwen to select an allowed tool, executes it, and records the run locally. It currently supports starting personalized practice, understanding a supplied review, or asking for clarification. See [agent design and Android path](docs/AGENT.md).
+
+```sh
+python3 -m venv .venv
+.venv/bin/pip install -r requirements-agent.txt
+.venv/bin/python -m hospitality.agent "Help me practice explaining where guests should meet"
+.venv/bin/python -m unittest discover -s tests -v
+```
+
+Dependencies and weights need initial online provisioning. Agent tracing is explicitly disabled. LangGraph runs on the desktop in this build; no claim is made that it runs inside an Android APK.
 
 ## The outcome
 Help an operator rehearse a difficult guest conversation, understand what was missing, and handle a new similar situation more completely and accurately without assistance.
@@ -19,7 +53,7 @@ Example: a guest has only 30 minutes. The operator practices explaining a verifi
 - Typed interaction first; voice only after target-device and language validation.
 - Fully offline core practice and feedback after installation and model provisioning.
 - Operator-approved phrase memory and adaptive practice scheduling.
-- Optional true model learning: a tiny phrase-intent classifier updated only from approved corrections, evaluated on unseen paraphrases.
+- Personalization uses approved phrase memory and rule-based practice selection. Model-weight updates are deferred.
 - No cloud dependency, automatic guest messaging, payment processing, or autonomous booking.
 
 ## Read first
@@ -40,8 +74,10 @@ The evaluation CSV is an empty results template. Do not report target thresholds
 - [x] Select prototype language: Tamil (ta), with English guest scenarios.
 - [ ] Name the actual community and Tamil-language reviewer.
 - [ ] Confirm access to an operator and obtain voluntary consent for testing.
-- [ ] Record the actual phone, OS, RAM, free storage, access hours, and connection conditions.
-- [ ] Select a model/runtime only after an offline feasibility spike.
+- [x] Select Android as the deployment target.
+- [ ] Record an Android device specification and run emulator tests; no phone is available yet.
+- [x] Implement a local Qwen3 1.7B adapter for desktop feasibility testing.
+- [ ] Validate and integrate an Android inference runtime on an emulator, then real hardware.
 - [ ] Verify the submission portal cutoff, timezone, upload fields, and link-access requirements.
 
 ## Challenge alignment
