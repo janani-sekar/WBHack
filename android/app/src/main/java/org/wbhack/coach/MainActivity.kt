@@ -16,11 +16,16 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private val Pine = Color(0xFF21594D)
 private val Cream = Color(0xFFF8F6EF)
@@ -38,15 +43,31 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+private suspend fun <T> io(block: () -> T): T = withContext(Dispatchers.IO) { block() }
+
 @Composable
 private fun CoachApp(store: CoachStore) {
+    val t = uiText(store.language)
     var tab by rememberSaveable { mutableIntStateOf(0) }
     var selected by rememberSaveable { mutableStateOf<String?>(null) }
+    var refresh by remember { mutableIntStateOf(0) }
+    var health by remember { mutableStateOf<Health?>(null) }
+    var checking by remember { mutableStateOf(true) }
+    val api = remember(store.baseUrl) { CoachApi(store.baseUrl) }
+    val aiLanguage = store.language in AI_LANGUAGES
+    LaunchedEffect(api, store.language, refresh) {
+        checking = true
+        health = runCatching {
+            io { api.health().also { if (it.modelInstalled && aiLanguage) api.ensureLanguage(store.language) } }
+        }.getOrNull()
+        checking = false
+    }
+    val liveApi = api.takeIf { health?.modelInstalled == true && aiLanguage }
     val scenario = store.scenarios.find { it.id == selected }
     BackHandler(enabled = selected != null) { selected = null }
     Scaffold(bottomBar = {
         if (store.welcomed && selected == null) NavigationBar {
-            listOf("Practice", "My phrases", "Settings").forEachIndexed { index, label ->
+            t.tabs.forEachIndexed { index, label ->
                 val icon = listOf(Icons.Default.Home, Icons.Default.List, Icons.Default.Settings)[index]
                 NavigationBarItem(selected = tab == index, onClick = { tab = index },
                     icon = { Icon(icon, contentDescription = null) }, label = { Text(label) })
@@ -58,30 +79,28 @@ private fun CoachApp(store: CoachStore) {
             Text("HOSPITALITY COACH", color = Pine, fontSize = 12.sp, letterSpacing = 2.sp,
                 fontWeight = FontWeight.Bold)
             when {
-                !store.welcomed -> Welcome(store)
-                scenario != null -> key(scenario.id) { Session(store, scenario) { selected = null } }
-                tab == 1 -> Phrases(store)
-                tab == 2 -> Settings(store)
+                !store.welcomed -> Welcome(store, t)
+                scenario != null -> key(scenario.id, liveApi) { Session(store, scenario, liveApi, t) { selected = null } }
+                tab == 1 -> Phrases(store, t)
+                tab == 2 -> Settings(store, t, health, checking) { refresh++ }
                 else -> {
-                    Text(if (store.tamil) "வணக்கம்!" else "Welcome back.", fontSize = 34.sp, fontWeight = FontWeight.Bold)
-                    Text("A little practice.\nA more confident welcome.", style = MaterialTheme.typography.headlineMedium)
-                    Note("Works without internet", "Practice cards and your saved phrases stay on this device. AI is not connected yet.")
-                    Text("${store.practiceCount} practice sessions · ${store.completed.size} of 3 scenarios explored",
-                        style = MaterialTheme.typography.bodyMedium)
-                    Text("Your next conversation", style = MaterialTheme.typography.titleLarge)
+                    Text(if (store.language == "ta") "வணக்கம்!" else t.welcomeBack, fontSize = 34.sp, fontWeight = FontWeight.Bold)
+                    Text(t.tagline, style = MaterialTheme.typography.headlineMedium)
+                    AiStatus(t, health, checking, aiLanguage)
+                    Text(t.progress(store.practiceCount, store.completed.size), style = MaterialTheme.typography.bodyMedium)
+                    Text(t.nextConversation, style = MaterialTheme.typography.titleLarge)
                     store.scenarios.sortedBy { it.id in store.completed }.forEachIndexed { index, item ->
                         Card(onClick = { selected = item.id }, modifier = Modifier.fillMaxWidth(),
                             colors = CardDefaults.cardColors(containerColor = Color.White)) {
                             Column(Modifier.padding(22.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                                Text("0${index + 1}   /   ${if (item.id in store.completed) "PRACTICE AGAIN" else "START HERE"}", color = Pine, fontSize = 12.sp)
-                                Text(item.title, style = MaterialTheme.typography.titleLarge)
+                                Text("0${index + 1}   /   ${if (item.id in store.completed) t.practiceAgain else t.startHere}", color = Pine, fontSize = 12.sp)
+                                Text(t.titles[item.id] ?: item.title, style = MaterialTheme.typography.titleLarge)
                                 Text(item.guest)
-                                Text("Open practice →", color = Pine, fontWeight = FontWeight.SemiBold)
+                                Text(t.openPractice, color = Pine, fontWeight = FontWeight.SemiBold)
                             }
                         }
                     }
-                    Text("Fictional farm scenarios · English guest dialogue · Tamil coaching drafts",
-                        style = MaterialTheme.typography.bodySmall)
+                    Text(t.footer, style = MaterialTheme.typography.bodySmall)
                 }
             }
         }
@@ -89,106 +108,190 @@ private fun CoachApp(store: CoachStore) {
 }
 
 @Composable
-private fun Welcome(store: CoachStore) {
-    Spacer(Modifier.height(24.dp))
-    Text("Make every\nwelcome count.", fontSize = 40.sp, lineHeight = 46.sp, fontWeight = FontWeight.Bold)
-    Text("Try a guest conversation, compare your reply with a helpful example, then try again.",
-        style = MaterialTheme.typography.titleMedium)
-    LanguageChoice(store)
-    Note("A space to practise", "Nothing is sent to a guest. Only phrases you choose to remember are saved. This is a shared-device prototype: anyone with access to this app can see saved phrases.")
-    Note("Early preview", "This version uses fixed practice cards, not an AI model. Tamil text is a draft awaiting a local-language reviewer.")
-    Button(onClick = store::welcome, modifier = Modifier.fillMaxWidth()) { Text("Start practising") }
+private fun AiStatus(t: UiText, health: Health?, checking: Boolean, aiLanguage: Boolean) {
+    when {
+        checking -> Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+            CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp); Text(t.checking)
+        }
+        health?.modelInstalled == true && aiLanguage -> Note(t.aiOnTitle, t.aiOnBody(health.model))
+        health?.modelInstalled == true -> Note(t.aiOffTitle, t.aiNoLanguageBody)
+        else -> Note(t.aiOffTitle, t.aiOffBody)
+    }
 }
 
 @Composable
-private fun Session(store: CoachStore, scenario: Scenario, close: () -> Unit) {
+private fun Welcome(store: CoachStore, t: UiText) {
+    Spacer(Modifier.height(24.dp))
+    Text(t.welcomeTitle, fontSize = 40.sp, lineHeight = 46.sp, fontWeight = FontWeight.Bold)
+    Text(t.welcomeBody, style = MaterialTheme.typography.titleMedium)
+    LanguageChoice(store, t)
+    Note(t.safeTitle, t.safeBody)
+    Note(t.previewTitle, t.previewBody)
+    Button(onClick = store::welcome, modifier = Modifier.fillMaxWidth()) { Text(t.start) }
+}
+
+@Composable
+private fun Session(store: CoachStore, scenario: Scenario, api: CoachApi?, t: UiText, close: () -> Unit) {
     var response by rememberSaveable { mutableStateOf("") }
     var reviewed by rememberSaveable { mutableStateOf(false) }
     var novel by rememberSaveable { mutableStateOf(false) }
     var counted by rememberSaveable { mutableStateOf(false) }
     var saveDialog by rememberSaveable { mutableStateOf(false) }
     var phrase by rememberSaveable { mutableStateOf("") }
+    var useGuide by rememberSaveable { mutableStateOf(false) }
+    var turn by remember { mutableStateOf<AiTurn?>(null) }
+    var assessment by remember { mutableStateOf<Assessment?>(null) }
+    var decision by remember { mutableStateOf<Boolean?>(null) }
+    var busy by remember { mutableStateOf(false) }
+    var error by remember { mutableStateOf<String?>(null) }
     val engine = remember { ReferencePracticeEngine() }
-    TextButton(onClick = close) { Text("← All scenarios") }
-    Text(scenario.title, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
-    Text(if (novel) "A fresh situation" else "Imagine your guest asks…", color = Pine)
+    val scope = rememberCoroutineScope()
+    val ai = api != null && !useGuide
+    fun run(block: suspend () -> Unit) {
+        scope.launch {
+            busy = true; error = null
+            try { block() } catch (e: CancellationException) { throw e } catch (e: Exception) {
+                error = e.message ?: e.javaClass.simpleName
+            } finally { busy = false }
+        }
+    }
+    LaunchedEffect(ai) { if (ai && turn == null) run { turn = io { api!!.start(scenario.id) } } }
+
+    TextButton(onClick = close) { Text(t.allScenarios) }
+    Text(t.titles[scenario.id] ?: scenario.title, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
+    Text(when { ai -> t.aiGuestAsks; novel -> t.freshSituation; else -> t.guestAsks }, color = Pine)
     Card(colors = CardDefaults.cardColors(containerColor = Pine)) {
-        Text(if (novel) scenario.unseenGuest else scenario.guest, Modifier.padding(24.dp),
-            color = Color.White, style = MaterialTheme.typography.titleLarge)
+        val guest = when {
+            ai -> turn?.guestMessage ?: "…"
+            novel -> scenario.unseenGuest
+            else -> scenario.guest
+        }
+        Text(guest, Modifier.padding(24.dp), color = Color.White, style = MaterialTheme.typography.titleLarge)
     }
-    Text("Facts you can rely on", fontWeight = FontWeight.Bold)
-    Text("Standard tour: 60 minutes\nCoffee tasting: 20 minutes\nMeeting point: farm entrance beside the blue gate\nPrices and availability: not confirmed")
-    Text("These are fictional demo facts.", style = MaterialTheme.typography.bodySmall)
+    Text(t.facts, fontWeight = FontWeight.Bold)
+    Text(t.factsList)
+    Text(t.factsNote, style = MaterialTheme.typography.bodySmall)
     OutlinedTextField(value = response, onValueChange = { response = it.take(2000); reviewed = false },
-        modifier = Modifier.fillMaxWidth(), minLines = 4, label = { Text("Your reply to the guest") },
-        supportingText = { Text("${response.length}/2000 · This draft is not saved to disk") })
-    val saved = store.phrases.filter { it.context == scenario.id }
-    saved.forEach { item ->
-        TextButton(onClick = { response = item.text; reviewed = false }) { Text("Use saved phrase: ${item.text}") }
+        modifier = Modifier.fillMaxWidth(), minLines = 4, label = { Text(t.replyLabel) },
+        supportingText = { Text(t.replyCounter(response.length)) })
+    store.phrases.filter { it.context == scenario.id }.forEach { item ->
+        TextButton(onClick = { response = item.text; reviewed = false }) { Text(t.useSaved(item.text)) }
     }
-    Button(onClick = { reviewed = true }, enabled = response.isNotBlank(), modifier = Modifier.fillMaxWidth()) {
-        Text("Compare with practice guide")
-    }
-    if (reviewed) {
-        val coaching = engine.coach(scenario, response, store.tamil)
-        Note("One thing to practise", coaching.suggestion)
-        Text("Self-check", style = MaterialTheme.typography.titleMedium)
-        scenario.rubric.forEach { Text("• $it") }
-        Note("An example reply", coaching.example)
-        Text("Fixed reference guidance—not an assessment of your response.", style = MaterialTheme.typography.bodySmall)
-        OutlinedButton(onClick = { reviewed = false }, modifier = Modifier.fillMaxWidth()) { Text("Improve my reply") }
-        OutlinedButton(onClick = { phrase = response; saveDialog = true }, modifier = Modifier.fillMaxWidth()) { Text("Remember my phrase…") }
-        if (!novel) TextButton(onClick = { novel = true; response = ""; reviewed = false }) { Text("Try a new version of this situation") }
+    if (ai) {
         Button(onClick = {
-            if (!counted) { store.complete(scenario.id); counted = true }
-            close()
-        }, modifier = Modifier.fillMaxWidth()) { Text("Finish practice") }
+            val sessionId = turn?.sessionId ?: return@Button
+            val reply = response
+            run { assessment = io { api!!.respond(sessionId, reply) }; decision = null }
+        }, enabled = response.isNotBlank() && turn != null && !busy, modifier = Modifier.fillMaxWidth()) { Text(t.getAiCoaching) }
+    } else {
+        Button(onClick = { reviewed = true }, enabled = response.isNotBlank(), modifier = Modifier.fillMaxWidth()) { Text(t.compare) }
     }
-    if (saveDialog) AlertDialog(onDismissRequest = { saveDialog = false }, title = { Text("Remember this phrase?") },
+    if (busy) Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+        CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp); Text(t.aiWorking)
+    }
+    error?.let { message ->
+        Note(t.aiErrorTitle, message)
+        if (turn == null) OutlinedButton(onClick = { run { turn = io { api!!.start(scenario.id) } } },
+            modifier = Modifier.fillMaxWidth()) { Text(t.retry) }
+        OutlinedButton(onClick = { useGuide = true; error = null }, modifier = Modifier.fillMaxWidth()) { Text(t.useGuide) }
+    }
+    val current = assessment
+    if (ai && current != null) {
+        Note(t.strength, current.strength)
+        Note(t.improvement, current.improvement)
+        if (current.evidence.isNotBlank()) Text("${t.evidence}: “${current.evidence}”", style = MaterialTheme.typography.bodyMedium)
+        if (current.uncertain) Note(t.uncertainTitle, t.uncertainBody)
+        Text(t.scoresTitle, style = MaterialTheme.typography.titleMedium)
+        current.scores.forEach { (key, value) -> Text("• ${t.scoreLabels[key] ?: key}: $value") }
+        Text(t.aiNote, style = MaterialTheme.typography.bodySmall)
+        when (decision) {
+            null -> Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                val sessionId = turn?.sessionId
+                listOf(true, false).forEach { approve ->
+                    val onClick = { if (sessionId != null) run { io { api!!.decide(sessionId, current.turnId, approve) }; decision = approve } }
+                    if (approve) Button(onClick = onClick, enabled = !busy) { Text(t.accept) }
+                    else OutlinedButton(onClick = onClick, enabled = !busy) { Text(t.reject) }
+                }
+            }
+            true -> Text(t.accepted, color = Pine, fontWeight = FontWeight.SemiBold)
+            false -> Text(t.rejected)
+        }
+        OutlinedButton(onClick = { phrase = response; saveDialog = true }, modifier = Modifier.fillMaxWidth()) { Text(t.remember) }
+        OutlinedButton(onClick = {
+            val sessionId = turn?.sessionId ?: return@OutlinedButton
+            run { turn = io { api!!.next(sessionId) }; response = ""; assessment = null; decision = null }
+        }, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text(t.nextGuest) }
+    }
+    if (!ai && reviewed) {
+        val coaching = engine.coach(scenario, response, store.language)
+        Note(t.oneThing, coaching.suggestion)
+        Text(t.selfCheck, style = MaterialTheme.typography.titleMedium)
+        scenario.rubric.forEach { Text("• $it") }
+        Note(t.example, coaching.example)
+        Text(t.fixedNote, style = MaterialTheme.typography.bodySmall)
+        OutlinedButton(onClick = { reviewed = false }, modifier = Modifier.fillMaxWidth()) { Text(t.improve) }
+        OutlinedButton(onClick = { phrase = response; saveDialog = true }, modifier = Modifier.fillMaxWidth()) { Text(t.remember) }
+        if (!novel) TextButton(onClick = { novel = true; response = ""; reviewed = false }) { Text(t.tryNew) }
+    }
+    if ((ai && current != null) || (!ai && reviewed)) Button(onClick = {
+        if (!counted) { store.complete(scenario.id); counted = true }
+        close()
+    }, modifier = Modifier.fillMaxWidth()) { Text(t.finish) }
+    if (saveDialog) AlertDialog(onDismissRequest = { saveDialog = false }, title = { Text(t.saveTitle) },
         text = { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("Edit before approving. It will stay on this device and appear in this scenario. Do not include private guest details.")
-            OutlinedTextField(value = phrase, onValueChange = { phrase = it.take(2000) }, label = { Text("Approved wording") })
-        } }, confirmButton = { TextButton(enabled = phrase.isNotBlank(), onClick = { store.approve(phrase, scenario.id); saveDialog = false }) { Text("Approve & save") } },
-        dismissButton = { TextButton(onClick = { saveDialog = false }) { Text("Cancel") } })
+            Text(t.saveBody)
+            OutlinedTextField(value = phrase, onValueChange = { phrase = it.take(150) }, label = { Text(t.approvedWording) })
+        } }, confirmButton = { TextButton(enabled = phrase.isNotBlank(), onClick = {
+            store.approve(phrase, scenario.id)
+            if (ai) { val original = response; val preferred = phrase
+                scope.launch { runCatching { io { api!!.remember(original, preferred, scenario.id) } } } }
+            saveDialog = false
+        }) { Text(t.approveSave) } },
+        dismissButton = { TextButton(onClick = { saveDialog = false }) { Text(t.cancel) } })
 }
 
 @Composable
-private fun Phrases(store: CoachStore) {
-    Text("Words that work\nfor you.", style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
-    Text("Only wording you approve appears here. Reuse it in practice, or remove it at any time.")
-    if (store.phrases.isEmpty()) Note("Your phrasebook is ready", "After a practice round, choose ‘Remember my phrase’ to add your own wording.")
+private fun Phrases(store: CoachStore, t: UiText) {
+    Text(t.phrasesTitle, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
+    Text(t.phrasesBody)
+    if (store.phrases.isEmpty()) Note(t.emptyTitle, t.emptyBody)
     store.phrases.forEach { phrase ->
         Card(Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = Color.White)) {
             Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text(store.scenarios.find { it.id == phrase.context }?.title ?: "Practice", color = Pine)
+                Text(t.titles[phrase.context] ?: "Practice", color = Pine)
                 Text(phrase.text)
-                TextButton(onClick = { store.forget(phrase.id) }) { Text("Forget phrase") }
+                TextButton(onClick = { store.forget(phrase.id) }) { Text(t.forget) }
             }
         }
     }
 }
 
 @Composable
-private fun Settings(store: CoachStore) {
+private fun Settings(store: CoachStore, t: UiText, health: Health?, checking: Boolean, recheck: () -> Unit) {
     var confirmReset by remember { mutableStateOf(false) }
-    Text("Make it yours.", style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
-    LanguageChoice(store)
-    Note("On this phone", "Approved phrases, language preference and practice counts are stored locally. Replies are not saved to disk. Android backup is disabled. App locking and separate operator profiles are not implemented.")
-    Note("Model status", "No model installed. The offline practice guide uses fixed examples. Generated coaching, free-form translation and review analysis still need an on-device model integration.")
-    Text("Tamil coaching is draft content, not validated language support. Guest prompts and navigation are in English.")
-    OutlinedButton(onClick = { confirmReset = true }) { Text("Clear phrases and progress…") }
-    if (confirmReset) AlertDialog(onDismissRequest = { confirmReset = false }, title = { Text("Clear local learning data?") },
-        text = { Text("This removes all approved phrases and practice counts on this phone. It cannot be undone.") },
-        confirmButton = { TextButton(onClick = { store.reset(); confirmReset = false }) { Text("Clear data") } },
-        dismissButton = { TextButton(onClick = { confirmReset = false }) { Text("Keep data") } })
+    var url by rememberSaveable { mutableStateOf(store.baseUrl) }
+    Text(t.settingsTitle, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
+    LanguageChoice(store, t)
+    Text(t.languageNote, style = MaterialTheme.typography.bodySmall)
+    Note(t.modelTitle, if (health?.modelInstalled == true) t.modelOn(health.model) else t.modelOff)
+    OutlinedTextField(value = url, onValueChange = { url = it.take(200) }, singleLine = true,
+        modifier = Modifier.fillMaxWidth(), label = { Text(t.backendLabel) })
+    OutlinedButton(onClick = { store.backend(url); url = store.baseUrl; recheck() }, enabled = !checking) { Text(t.saveAndCheck) }
+    Note(t.deviceTitle, t.deviceBody)
+    OutlinedButton(onClick = { confirmReset = true }) { Text(t.clearData) }
+    if (confirmReset) AlertDialog(onDismissRequest = { confirmReset = false }, title = { Text(t.resetTitle) },
+        text = { Text(t.resetBody) },
+        confirmButton = { TextButton(onClick = { store.reset(); confirmReset = false }) { Text(t.confirmClear) } },
+        dismissButton = { TextButton(onClick = { confirmReset = false }) { Text(t.keepData) } })
 }
 
 @Composable
-private fun LanguageChoice(store: CoachStore) {
-    Text("Coaching language", fontWeight = FontWeight.Bold)
+private fun LanguageChoice(store: CoachStore, t: UiText) {
+    Text(t.languageLabel, fontWeight = FontWeight.Bold)
     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        FilterChip(selected = store.tamil, onClick = { store.language(true) }, label = { Text("தமிழ்") })
-        FilterChip(selected = !store.tamil, onClick = { store.language(false) }, label = { Text("English") })
+        listOf("es" to "Español", "ta" to "தமிழ்", "en" to "English").forEach { (code, label) ->
+            FilterChip(selected = store.language == code, onClick = { store.language(code) }, label = { Text(label) })
+        }
     }
 }
 

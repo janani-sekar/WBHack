@@ -8,11 +8,14 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.UUID
 
+const val DEFAULT_BACKEND = "http://127.0.0.1:8765"
+
 data class Phrase(val id: String, val text: String, val context: String, val approvedAt: Long)
 
 class CoachStore(context: Context) {
     private val prefs = context.getSharedPreferences("coach", Context.MODE_PRIVATE)
-    var tamil by mutableStateOf(prefs.getBoolean("tamil", true)); private set
+    var language by mutableStateOf(prefs.getString("language", "es")!!); private set
+    var baseUrl by mutableStateOf(prefs.getString("baseUrl", DEFAULT_BACKEND)!!); private set
     var welcomed by mutableStateOf(prefs.getBoolean("welcomed", false)); private set
     var phrases by mutableStateOf(readPhrases()); private set
     var practiceCount by mutableStateOf(prefs.getInt("practiceCount", 0)); private set
@@ -26,7 +29,8 @@ class CoachStore(context: Context) {
                 (0 until rubric.length()).map { n -> rubric.getString(n) }, item.getString("held_out_guest"))
         }
     }
-    fun language(value: Boolean) { tamil = value; prefs.edit().putBoolean("tamil", value).apply() }
+    fun language(code: String) { language = code; prefs.edit().putString("language", code).apply() }
+    fun backend(url: String) { baseUrl = url.trim().ifBlank { DEFAULT_BACKEND }; prefs.edit().putString("baseUrl", baseUrl).apply() }
     fun welcome() { welcomed = true; prefs.edit().putBoolean("welcomed", true).apply() }
     fun complete(id: String) {
         practiceCount++
