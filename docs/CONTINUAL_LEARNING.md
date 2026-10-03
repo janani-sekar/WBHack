@@ -1,5 +1,7 @@
 # Continual learning: three distinct mechanisms
 
+Implementation update: approved local phrase memory and rule-based progress recommendations are implemented in the desktop backend. Actual classifier/adapter weight updates remain deferred.
+
 The user wants the coach to improve with the operator's language and experience. Implement narrowly and describe precisely what changes.
 
 ## 1. Approved memory: required MVP

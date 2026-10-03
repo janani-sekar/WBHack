@@ -1,42 +1,67 @@
-# Concrete preparation and build plan
+# Product and implementation plan v2
 
-Use elapsed hours so the plan can fit the time actually remaining. Confirm the portal deadline immediately. This is a proposed 24-hour effort budget, not a promise about the event cutoff. If time is shorter, drop voice and review import before reducing verification.
+Updated 2026-10-03 from the team's agreed scope. Target: **Android**. No physical Android phone is currently available. Desktop resource-constrained tests are a development surrogate, not proof of Android compatibility or speed. Android emulator integration and eventual hardware testing remain explicit gates.
 
-| Phase | Hours | Deliverable | Exit condition |
-|---|---:|---|---|
-| Ground the problem | 0–2 | One operator profile, recent incident, device inventory, named language reviewer | Real workflow and accessible device established; assumptions labeled |
-| Offline feasibility | 2–4 | Model/runtime spike on actual device | Two meaningful local-language exchanges offline; measure latency, RAM, storage |
-| Core practice loop | 4–10 | Scenario → response → grounded feedback → retry | Three complete scenarios; no internet calls required |
-| Personalization | 10–13 | Approved phrase memory, editable profile, practice scheduler | Correction persists after restart; deletion and reset work |
-| Learning experiment | 13–15 | Optional tiny classifier update | Held-out improvement and retention tested; otherwise label experimental and disable |
-| Evaluation | 15–19 | Baseline comparison, device results, error log | Actual results recorded; no fabricated performance claims |
-| Packaging | 19–22 | Reproducible README, model/data manifest, 3–4 minute video | Clean install and model provisioning independently repeated |
-| Submission buffer | 22–24 | Portal submission and receipt | Every link works for intended judges; save confirmation |
+## Priority and completion criteria
+| Priority | Feature | Done when |
+|---|---|---|
+| P0 | Offline hospitality training | Guest role-play, Tamil feedback, retry, and progress work locally |
+| P0 | Review understanding | Original review, Tamil explanation, evidence-backed themes |
+| P0 | Review-informed practice | Operator approves a theme and starts relevant practice |
+| P0 | Personalization | Approved vocabulary and skill history survive restart; inspect/delete/reset work |
+| P0 | Offline frontend | Chat with progress sidepanel/drawer calls on-device application logic |
+| P1 | Draft review response | Editable, human-approved reply, only after P0 passes |
+| Deferred | Inbound requests and platform integrations | Out of this iteration |
+| Deferred | Model-weight training and speech | Not required for the core; separately evaluated later |
 
-## P0: must work
-1. Choose one of three scenarios: welcome/explain offering; time-constrained request; directions clarification.
-2. Show a simulated guest prompt in an appropriate language.
-3. Accept typed response in the named local language.
-4. Evaluate against explicit requirements and verified operator facts.
-5. Give one actionable suggestion with an evidence reference; allow disagreement.
-6. Retry with a varied guest follow-up.
-7. Save only approved preferences and progress locally.
-8. Show memory contents, deletion, and reset controls.
+## Phase 1: AI feasibility and service contract
+1. Provision Qwen3 1.7B locally; record exact model digest, size, quantization, and license.
+2. Implement a replaceable local inference adapter and structured outputs.
+3. Test real Tamil coaching and review explanation, not canned output.
+4. Keep a desktop harness for iteration; do not present its Python/Ollama stack as an Android backend.
+5. Run a limited-resource profile (two inference threads, short context, bounded output). Report actual host, settings, and latency. This does not emulate ARM scheduling, phone RAM pressure, thermals, or battery life.
 
-## P1: only after P0 passes
-- A small incremental classifier that learns approved local phrase-to-intent examples.
-- A few consented or clearly synthetic reviews that select future practice topics.
-- Voice input/output with supported language and device measurements.
+## Phase 2: Hospitality AI
+1. Create verified business facts and three scenario families: duration, directions, expectations.
+2. Generate a short guest opening; accept Tamil text.
+3. Assess against a small rubric; give one strength and one improvement in Tamil.
+4. Require exact source evidence for assessments; surface uncertain outputs.
+5. Allow retry and a follow-up guest turn.
+6. Keep model assessments pending until operator approval; rejected/uncertain assessments do not count.
+7. Compute progress transparently; practice results are not certified mastery.
 
-## Out of scope
-Automatic guest communication, universal etiquette scoring, accent grading, new-language acquisition from a few corrections, autonomous booking, payment processing, full LLM retraining on a basic phone, and claims of increased income from a weekend demo.
+## Phase 3: Reviews
+1. Paste one review; retain original locally.
+2. Translate and explain in Tamil; extract a bounded set of themes with source quotes.
+3. Distinguish operational concerns from trainable skills.
+4. Require operator approval before creating a lesson.
+5. Use a controlled scenario associated with the skill; do not inject raw customer text into training instructions.
+6. Keep review replies out of the critical path.
 
-## Ownership
-Assign people to product/community validation, implementation, and evaluation/pitch. These are responsibilities, not a requirement for a particular team size. A solo builder should follow the phases serially and keep P1 small.
+## Phase 4: Personalization
+1. Ask before saving a preferred expression.
+2. Store phrase, preferred form, context, language and approval timestamp locally.
+3. Retrieve bounded preferences during relevant AI tasks; business facts take precedence.
+4. Recommend practice based on approved attempts and skill coverage using transparent rules.
+5. Verify restart persistence, deletion, reset, and no progress changes from rejected feedback.
+6. Describe this as memory/curriculum personalization, not LLM retraining.
 
-## Decision gates
-- No real local-language reviewer: recruit one or choose a language the team can reliably validate; do not invent fluent-language claims.
-- No smartphone accessible to the user: redesign around a verified existing shared device and actual access schedule, or select another evidence-backed operator. A new phone purchase is not the brief's default.
-- Language model fails on device: use a narrower learned intent/skill classifier with reviewed scenario templates and deterministic factual checks. AI must still influence feedback meaningfully.
-- Speech fails: keep text and disclose the literacy/access limitation.
-- Learning regresses: retain approved memory, disable model update, report the result honestly.
+## Phase 5: Frontend and Android integration
+1. Build Practice and Reviews screens plus business profile/settings.
+2. Show Guest and Coach separately in chat, with original review next to Tamil interpretation.
+3. Show progress in a sidepanel on wide layouts and drawer/tab on phones.
+4. Integrate a supported Android local runtime through the same task contracts. Ollama/Python is only the desktop development harness.
+5. Use an Android emulator for app lifecycle, layout, storage and runtime integration if tooling becomes available.
+6. Disable emulator network and verify restart + coaching + reviews + personalization. A phone UI using host-computer inference is not on-device inference.
+7. Record physical-device performance as unverified until actual hardware is tested.
+
+## Phase 6: Evaluation and submission
+1. Tamil-speaker review of outputs, including mixed-language and ambiguous inputs.
+2. Compare practice with a static lesson; test new scenarios, not memorized prompts.
+3. Record real model latency, errors and memory measurements where available.
+4. Demonstrate review → approved topic → practice → feedback → retry → progress → restart persistence.
+5. Package reproducible setup, model/data manifests, limitations, and the required 2–5 minute video.
+6. Verify portal cutoff/timezone and submit with buffer.
+
+## Current iteration
+Build and test the AI backend first. Frontend, Android packaging/emulator tests, and native-speaker quality evaluation are subsequent work. A desktop smoke test is not an Android test.

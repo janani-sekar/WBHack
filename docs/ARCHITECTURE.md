@@ -2,7 +2,7 @@
 
 Language decision: Tamil (ta) coaching, with English guest scenarios proposed. Validate Tamil script rendering, colloquial/register variation, code-switching, and mixed Tamil/English input with a Tamil speaker. Do not infer speech-recognition quality from text quality.
 
-Status: design only. Choose concrete model/version/license after community, language, and device decisions. No model is currently integrated.
+Status: a desktop Python/Ollama backend now implements the task contracts with Qwen3 1.7B. Android remains the deployment target; Python/Ollama is not represented as the Android runtime. See API.md and MODEL.md.
 
 ## Offline core
 Local interface → scenario state → response interpretation → fact/rubric checks → one coaching suggestion → retry → approved memory and skill history.
