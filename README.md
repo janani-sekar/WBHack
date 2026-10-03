@@ -2,7 +2,7 @@
 
 An offline, local-language practice coach for small tourism operators.
 
-**Status: working desktop AI backend with local Qwen inference, SQLite personalization, and automated tests. Android is the target; no Android app, frontend, emulator validation, or physical-device measurements yet. Initial model output failed semantic quality checks; Tamil output is experimental and requires native-speaker review.**
+**Status: working desktop AI backend with local Qwen inference, SQLite personalization, and automated tests. Android is the target; no Android app, frontend, emulator validation, or physical-device measurements yet. Initial model output failed semantic quality checks; Spanish is now the prototype default after a small automated comparison; language quality is still provisional.**
 
 ## Run the AI backend
 
@@ -49,7 +49,7 @@ Choose scenario → simulated guest asks → operator responds → coach gives o
 Example: a guest has only 30 minutes. The operator practices explaining a verified short coffee-tasting option, clarifying timing, and setting expectations. The coach checks completeness and factual consistency, not accent or an assumed universal etiquette standard.
 
 ## MVP boundaries
-- Tamil coaching (user-selected), English-speaking guest scenarios, one community, one accessible device, three scenario families.
+- Spanish coaching (prototype default; Tamil/Hindi experimental), English-speaking guest scenarios, one community, one accessible device, three scenario families.
 - Typed interaction first; voice only after target-device and language validation.
 - Fully offline core practice and feedback after installation and model provisioning.
 - Operator-approved phrase memory and adaptive practice scheduling.
@@ -71,8 +71,8 @@ Example: a guest has only 30 minutes. The operator practices explaining a verifi
 The evaluation CSV is an empty results template. Do not report target thresholds as achieved results.
 
 ## Decisions before building
-- [x] Select prototype language: Tamil (ta), with English guest scenarios.
-- [ ] Name the actual community and Tamil-language reviewer.
+- [x] Select prototype language: Spanish (es), with English guest scenarios; changed from Tamil after automated screening.
+- [ ] Identify a community for later real-world validation (not a prototype blocker).
 - [ ] Confirm access to an operator and obtain voluntary consent for testing.
 - [x] Select Android as the deployment target.
 - [ ] Record an Android device specification and run emulator tests; no phone is available yet.
