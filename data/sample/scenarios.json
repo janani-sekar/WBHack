@@ -1,0 +1,38 @@
+[
+  {
+    "id": "time_request",
+    "synthetic": true,
+    "language": "en",
+    "guest": "We only have thirty minutes. Can we still try the coffee?",
+    "rubric": [
+      "acknowledge time constraint",
+      "offer verified 20-minute option",
+      "clarify start time without inventing availability"
+    ],
+    "held_out_guest": "Our ride comes back in half an hour. Is there a quick tasting?"
+  },
+  {
+    "id": "directions",
+    "synthetic": true,
+    "language": "en",
+    "guest": "Where should we meet you?",
+    "rubric": [
+      "state verified meeting point",
+      "ask whether further directions are needed",
+      "do not invent road conditions"
+    ],
+    "held_out_guest": "We have reached the farm. Which entrance do we use?"
+  },
+  {
+    "id": "duration_availability",
+    "synthetic": true,
+    "language": "en",
+    "guest": "How long is the farm tour, and can I come tomorrow?",
+    "rubric": [
+      "state 60-minute standard tour",
+      "recognize availability question",
+      "say availability needs confirmation"
+    ],
+    "held_out_guest": "Could we visit the next day, and how much time should we allow?"
+  }
+]

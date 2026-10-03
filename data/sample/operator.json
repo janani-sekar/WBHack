@@ -1,0 +1,16 @@
+{
+  "synthetic": true,
+  "name": "Demo farm operator",
+  "language": "ta",
+  "facts": {
+    "standard_tour_minutes": 60,
+    "short_coffee_tasting_minutes": 20,
+    "meeting_point": "farm entrance beside the blue gate"
+  },
+  "unknowns": [
+    "tomorrow availability",
+    "prices"
+  ],
+  "note": "Fictional demonstration facts. Replace with approved operator facts. Tamil selected; fixtures remain English and require reviewed Tamil localization.",
+  "guest_language": "en"
+}
