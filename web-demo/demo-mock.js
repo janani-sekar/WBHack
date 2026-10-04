@@ -43,7 +43,7 @@ function reviewBatch(b){const es=b.language==='es',T=(e,s)=>es?s:e,groups=[];
 function batchLesson(b){const batch=batches.find(x=>x.id===b.batch_id),g=batch.groups.find(x=>x.id===b.group_id),c=F.curriculum.find(c=>c.skill===g.skill&&c.difficulty===1)||F.curriculum[0];
  const l={id:uid(),batch_id:batch.id,group_id:g.id,topic:g.topic,skill:g.skill,scenario_id:c.id,evidence_quote:batch.reviews[0].original.slice(0,160),reason_local:g.sources[0].explanation_local};lessons.push(l);return l;}
 function route(method,path,b){let m;
- if(path==='/health')return{runtime:'ui-preview',model:'none',model_installed:true,deployment:'static-ui-preview',android_verified:false};
+ if(path==='/health')return{runtime:'sample',model:'none',model_installed:true,deployment:'static',android_verified:false};
  if(path==='/curriculum')return F.curriculum; if(path==='/learning-plan')return plan; if(path==='/learner-memory')return{...memory,preferences:settings};
  if(path==='/learning-settings')return method==='POST'?(settings={guest_language:b.guest_language||settings.guest_language,style:b.style||settings.style,coach_language:b.coach_language||settings.coach_language,support:b.support||settings.support}):settings;
  if(path==='/lessons')return lessons; if(path==='/review-batches')return method==='POST'?reviewBatch(b):batches; if(path==='/batch-lessons')return batchLesson(b);
