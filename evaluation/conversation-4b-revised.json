@@ -1,0 +1,165 @@
+{
+  "model": "qwen3:4b-instruct",
+  "synthetic": true,
+  "opening": "hey we have 30 mins before our ride leaves… is there still time for anything?",
+  "turns": [
+    {
+      "id": "3a8177e84df64e95934b192539bc5b29",
+      "response": "The tasting takes 20 minutes and the full tour takes 60. What time do you need to start?",
+      "guest_message": "hey we have 30 mins before our ride leaves… is there still time for anything?",
+      "assessment": {
+        "answers_request": 2,
+        "clarifies_unknowns": 2,
+        "evidence_quote": "What time do you need to start?",
+        "factual_accuracy": 0,
+        "improvement_local": "No confirmes datos que no están verificados. Explica qué necesitas comprobar y vuelve a intentarlo.",
+        "next_step": 2,
+        "strength_local": "Has intentado responder a la consulta; revisemos primero los datos.",
+        "uncertain": false
+      },
+      "status": "pending",
+      "metrics": {
+        "model": "qwen3:4b-instruct",
+        "elapsed_seconds": 15.302,
+        "output_tokens": 113,
+        "prompt_tokens": 912,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      },
+      "fact_check": {
+        "reason": "The response asks a question about start time, but the facts do not provide any information about start times. Therefore, the claim that 'What time do you need to start?' is unsupported because there is no factual basis in the provided data for such a time requirement. The factual claims about duration (tasting and full tour) are supported, but the question about start time is unsupported.",
+        "verdict": "unsupported"
+      },
+      "fact_check_metrics": {
+        "model": "qwen3:4b-instruct",
+        "elapsed_seconds": 4.149,
+        "output_tokens": 89,
+        "prompt_tokens": 203,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      },
+      "created_at": "2026-10-04T00:01:29.450749+00:00",
+      "question_index": 0,
+      "followup": "Actually, our ride leaves in 25 minutes—can we still do the tasting? I’d prefer to skip the full tour."
+    },
+    {
+      "id": "0ef811c6efb84b46b1254994bfd659b9",
+      "response": "I need to check the start time before confirming. How many people are with you?",
+      "guest_message": "Actually, our ride leaves in 25 minutes—can we still do the tasting? I’d prefer to skip the full tour.",
+      "assessment": {
+        "answers_request": 1,
+        "clarifies_unknowns": 1,
+        "evidence_quote": "I need to check the start time before confirming. How many people are with you?",
+        "factual_accuracy": 1,
+        "improvement_local": "Pregunte directamente cuándo debe comenzar el recorrido.",
+        "next_step": 1,
+        "strength_local": "Reconoce el límite de tiempo del recorrido.",
+        "uncertain": false
+      },
+      "status": "pending",
+      "metrics": {
+        "model": "qwen3:4b-instruct",
+        "elapsed_seconds": 4.913,
+        "output_tokens": 115,
+        "prompt_tokens": 964,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      },
+      "fact_check": {
+        "reason": "The response does not make any unsupported claims about availability, price, directions, or permission. It appropriately acknowledges uncertainty by requesting additional information (number of people) before proceeding, which is consistent with the facts provided (no start time or group size details are given). This is a valid and supported response given the lack of information in the facts.",
+        "verdict": "supported"
+      },
+      "fact_check_metrics": {
+        "model": "qwen3:4b-instruct",
+        "elapsed_seconds": 3.181,
+        "output_tokens": 80,
+        "prompt_tokens": 196,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      },
+      "created_at": "2026-10-04T00:01:40.009006+00:00",
+      "question_index": 1,
+      "followup": "Actually, only two of us—maybe we can just do the tasting and skip the full tour?"
+    },
+    {
+      "id": "63b403a8b92947e3b3227702ade9eee7",
+      "response": "Thank you. I will check whether we can fit your group before your driver leaves. I cannot confirm it yet.",
+      "guest_message": "Actually, only two of us—maybe we can just do the tasting and skip the full tour?",
+      "assessment": {
+        "answers_request": 2,
+        "clarifies_unknowns": 1,
+        "evidence_quote": "I will check whether we can fit your group before your driver leaves. I cannot confirm it yet.",
+        "factual_accuracy": 2,
+        "improvement_local": "Pregunte directamente cuándo debe comenzar el grupo para ajustar el horario.",
+        "next_step": 1,
+        "strength_local": "Reconoce el límite de 30 minutos y ofrece el tasting de 20 minutos.",
+        "uncertain": false
+      },
+      "status": "pending",
+      "metrics": {
+        "model": "qwen3:4b-instruct",
+        "elapsed_seconds": 5.809,
+        "output_tokens": 128,
+        "prompt_tokens": 1016,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      },
+      "fact_check": {
+        "reason": "The response does not make any factual claims about the availability, price, directions, or permission that are unsupported by the provided facts. It acknowledges uncertainty about group fit without asserting any specific details that are not consistent with the given information. The statement 'I will check whether we can fit your group before your driver leaves' is a reasonable and non-assertive statement given the lack of specific data on group capacity. Thus, no unsupported claims are made.",
+        "verdict": "supported"
+      },
+      "fact_check_metrics": {
+        "model": "qwen3:4b-instruct",
+        "elapsed_seconds": 4.148,
+        "output_tokens": 102,
+        "prompt_tokens": 202,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      },
+      "created_at": "2026-10-04T00:01:51.280769+00:00",
+      "question_index": 2
+    }
+  ],
+  "review": {
+    "id": "52c49608b5dc41d99ace5ceb08cd53e4",
+    "original": "We loved tasting the coffee and hearing how your family grows it. We arrived late because the map took us to the wrong gate. A landmark in the directions would have helped.",
+    "interpretation": {
+      "explanation_local": "El comentario original se traduce y explica en español, destacando dos temas clave relacionados con la experiencia del cliente en cuanto a productos y navegación.",
+      "themes": [
+        {
+          "evidence_quote": "We loved tasting the coffee and hearing how your family grows it.",
+          "explanation_local": "Los visitantes disfrutaron del café y de la historia familiar detrás de su producción.",
+          "kind": "positive",
+          "skill": "duration",
+          "training_relevant": false
+        },
+        {
+          "evidence_quote": "A landmark in the directions would have helped.",
+          "explanation_local": "La falta de un punto de referencia en las instrucciones causó retraso en la llegada.",
+          "kind": "positive",
+          "skill": "directions",
+          "training_relevant": true
+        }
+      ],
+      "translation_local": "Nos encantó probar el café y escuchar cómo su familia lo cultiva. Llegamos tarde porque el mapa nos llevó a la puerta equivocada. Un punto de referencia en las instrucciones habría ayudado.",
+      "uncertain": false
+    },
+    "metrics": {
+      "model": "qwen3:4b-instruct",
+      "elapsed_seconds": 12.188,
+      "output_tokens": 269,
+      "prompt_tokens": 366,
+      "constrained_profile": false,
+      "provenance": "real-local-model",
+      "android_verified": false
+    },
+    "status": "unconfirmed",
+    "synthetic": null
+  }
+}

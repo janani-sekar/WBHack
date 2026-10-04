@@ -1,0 +1,42 @@
+[
+  {
+    "guest": "sorry running late!! maybe 25 mins. can we still do the whole tour and finish at the original time?",
+    "reply": "yes you can do the whole tour",
+    "assessment": {
+      "answers_request": 0,
+      "clarifies_unknowns": 0,
+      "customer_tone": 0,
+      "evidence_quote": "yes you can do the whole tour",
+      "factual_accuracy": 0,
+      "improvement_local": "Do not promise the full tour can be completed on time without stating it's impossible. Say: 'The full tour is 60 minutes — we cannot finish on time if we're 25 minutes late. Would you like to consider the short tasting instead?'",
+      "next_step": 0,
+      "strength_local": "You responded to the guest; check the facts before using this reply.",
+      "uncertain": false
+    },
+    "issue": null,
+    "fact_check": {
+      "reason": "The guest asks if they can complete the full 60-minute tour in only 25 minutes and still finish at the original time. The facts state that the full tour takes 60 minutes, and there is no information about whether the tour can be shortened or completed in less time. The response claims 'yes you can do the whole tour' in 25 minutes, which contradicts the known duration of the tour. This is an unsupported claim because it implies the tour can be completed in less time than it is designed to take. Therefore, the response makes an unsupported factual claim.",
+      "verdict": "unsupported"
+    }
+  },
+  {
+    "guest": "sorry running late!! maybe 25 mins. can we still do the whole tour and finish at the original time?",
+    "reply": "The full tour takes 60 minutes, so we cannot finish it at the original time after a late start. We could discuss the 20-minute tasting or check whether an extension is possible. Which would you prefer?",
+    "assessment": {
+      "answers_request": 2,
+      "clarifies_unknowns": 2,
+      "customer_tone": 2,
+      "evidence_quote": "We could discuss the 20-minute tasting or check whether an extension is possible.",
+      "factual_accuracy": 2,
+      "improvement_local": "Clarify if the extension is available before committing; avoid assuming it's possible without confirmation.",
+      "next_step": 2,
+      "strength_local": "Accurately states tour duration and offers alternatives without overpromising.",
+      "uncertain": false
+    },
+    "issue": null,
+    "fact_check": {
+      "reason": "The response does not make any unsupported claims. It correctly states that the full tour takes 60 minutes and thus cannot finish at the original time if the start is delayed. It then offers options (20-minute tasting or extension), acknowledging that the extension availability is unknown. The response does not assert a specific outcome or guarantee, only presents reasonable possibilities based on the facts. No factual claims are made without support.",
+      "verdict": "supported"
+    }
+  }
+]

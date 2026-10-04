@@ -1,0 +1,47 @@
+{
+  "assessment": {
+    "answers_request": 2,
+    "clarifies_unknowns": 2,
+    "evidence_quote": "The coffee tasting takes twenty minutes.",
+    "factual_accuracy": 2,
+    "improvement_local": "Confirm the 20-minute tasting is available and ask for start time to match the 30-minute window.",
+    "next_step": 2,
+    "strength_local": "Correctly identifies the 20-minute tasting as feasible within 30 minutes.",
+    "uncertain": false
+  },
+  "fact_check": {
+    "reason": "The response correctly states that the coffee tasting takes twenty minutes, which is supported by the fact that 'tasting_minutes': 20. The question 'What time do you need to leave?' is a valid inquiry and does not make an unsupported claim, as the facts do not provide information about departure times. Therefore, the response is supported.",
+    "verdict": "supported"
+  },
+  "translation": {
+    "improvement_local": "Confirmar que la prueba de 20 minutos está disponible y pedir la hora de inicio para ajustar al intervalo de 30 minutos.",
+    "strength_local": "Identifica correctamente que la prueba de 20 minutos es viable dentro de los 30 minutos."
+  },
+  "summary": {
+    "reply_count": 1,
+    "early_finish": true,
+    "criterion_means": {
+      "answers_request": 2.0,
+      "factual_accuracy": 2.0,
+      "clarifies_unknowns": 2.0,
+      "next_step": 2.0
+    },
+    "focus": "answers_request",
+    "provisional": true,
+    "turn_ids": [
+      "27705d6fea6e401cbc4c8075b5825da4"
+    ]
+  },
+  "sources": [
+    {
+      "id": "needs",
+      "skill": "duration",
+      "title": "Identify the guest’s needs",
+      "source": "https://www.ilo.org/sites/default/files/wcmsp5/groups/public/@asia/@ro-bangkok/documents/publication/wcms_bk_pb_233_en.pdf#page=46",
+      "section": "ILO Tourism RMCS, C10, printed p.36",
+      "text": "Listen and ask questions to establish the guest’s needs. Recommend a service using accurate product knowledge and the guest’s available time and preferences.",
+      "kind": "reviewed paraphrase",
+      "version": "2026-10-03"
+    }
+  ]
+}

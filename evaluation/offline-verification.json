@@ -1,0 +1,189 @@
+{
+  "scope": "macOS process sandbox; internet denied, loopback permitted; not Android or whole-device airplane mode",
+  "prerequisites": "Model weights, Python packages and Ollama already installed",
+  "network_policy": "(version 1)(allow default)(deny network*)(allow network-outbound (remote ip \"localhost:*\"))(allow network-inbound (local ip \"localhost:*\"))",
+  "external_connection_errno": 1,
+  "health": {
+    "runtime": "ollama",
+    "model": "qwen3:1.7b",
+    "model_installed": true,
+    "deployment": "desktop-development-harness",
+    "android_verified": false,
+    "constrained_profile": false
+  },
+  "ui_served": true,
+  "agent": {
+    "id": "fc9039ada86d4e2d96f8973d70ce968d",
+    "request": "Practice explaining the duration of the coffee tasting.",
+    "decision": {
+      "tool": "start_practice",
+      "skill": "duration",
+      "lesson_id": "none",
+      "reason": "Practice explaining the duration of the coffee tasting.",
+      "clarification": "none"
+    },
+    "metrics": {
+      "model": "qwen3:1.7b",
+      "elapsed_seconds": 6.916,
+      "output_tokens": 49,
+      "prompt_tokens": 911,
+      "constrained_profile": false,
+      "provenance": "real-local-model",
+      "android_verified": false
+    },
+    "result": {
+      "id": "7434c1ad61a7417088dce896d3aa9250",
+      "skill": "duration",
+      "independent": false,
+      "reason": "Operator-selected practice",
+      "lesson_id": null,
+      "turns": [],
+      "scenario_id": "short_visit",
+      "scenario": {
+        "id": "short_visit",
+        "skill": "duration",
+        "difficulty": 1,
+        "title": "A guest has only half an hour",
+        "guest": "Our driver leaves in 30 minutes. Can we still do something meaningful?",
+        "facts": {
+          "full_tour_minutes": 60,
+          "tasting_minutes": 20
+        },
+        "goal": "Recognize the 30-minute limit; Offer the verified 20-minute tasting, not the full tour; Ask when the guest needs to start",
+        "rubric": {
+          "answers_request": {
+            "0": "Misses the main request or reverses its meaning",
+            "1": "Addresses only part of the request",
+            "2": "Recognize the 30-minute limit"
+          },
+          "factual_accuracy": {
+            "0": "Contradicts facts or invents a promise, price, policy or safety claim",
+            "1": "No contradiction, but important factual limits are omitted",
+            "2": "Uses only supplied facts and states relevant limits"
+          },
+          "clarifies_unknowns": {
+            "0": "Guesses a missing detail or ignores necessary clarification",
+            "1": "Identifies the gap but does not ask a useful question or offer a check",
+            "2": "Offer the verified 20-minute tasting, not the full tour"
+          },
+          "next_step": {
+            "0": "No usable next step, or an unauthorized commitment",
+            "1": "Vague next step or unclear ownership",
+            "2": "Ask when the guest needs to start"
+          }
+        },
+        "critical_errors": [
+          "Promise the full 60-minute tour fits in 30 minutes",
+          "Guarantee a transport connection"
+        ],
+        "synthetic": true,
+        "source_ids": [
+          "WB-BRIEF",
+          "ILO-RMCS",
+          "SUSTOUR-HOPS"
+        ],
+        "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations."
+      },
+      "guest_message": "Our driver leaves in 30 minutes. Can we still do something meaningful?",
+      "created_at": "2026-10-03T19:53:56.275439+00:00",
+      "metrics": {
+        "provenance": "authored-synthetic-opening",
+        "android_verified": false
+      }
+    },
+    "trace": [
+      "retrieve_local_context",
+      "choose_tool:start_practice",
+      "execute_allowed_tool",
+      "end"
+    ],
+    "harness": "langgraph",
+    "android_verified": false
+  },
+  "practice": {
+    "id": "83f5877203e144c289d0685158b8a6e9",
+    "response": "La degustación dura 20 minutos. ¿A qué hora desean comenzar?",
+    "guest_message": "Our driver leaves in 30 minutes. Can we still do something meaningful?",
+    "assessment": {
+      "strength_local": "El operador ofrece la degustación de 20 minutos, cumpliendo con el límite de 30 minutos.",
+      "improvement_local": "Puede preguntarle al cliente la hora exacta en que quiere comenzar la degustación para ajustar el plan.",
+      "evidence_quote": "¿A qué hora desean comenzar?",
+      "uncertain": false,
+      "answers_request": 2,
+      "factual_accuracy": 2,
+      "clarifies_unknowns": 2,
+      "next_step": 2
+    },
+    "status": "pending",
+    "metrics": {
+      "model": "qwen3:1.7b",
+      "elapsed_seconds": 18.378,
+      "output_tokens": 133,
+      "prompt_tokens": 862,
+      "constrained_profile": false,
+      "provenance": "real-local-model",
+      "android_verified": false
+    },
+    "fact_check": {
+      "verdict": "supported",
+      "reason": "The response states that the tasting duration is 20 minutes, which matches the fact provided. The question about the start time is a valid follow-up and does not make any unsupported claims."
+    },
+    "fact_check_metrics": {
+      "model": "qwen3:1.7b",
+      "elapsed_seconds": 7.831,
+      "output_tokens": 51,
+      "prompt_tokens": 160,
+      "constrained_profile": false,
+      "provenance": "real-local-model",
+      "android_verified": false
+    },
+    "created_at": "2026-10-03T19:54:22.448638+00:00"
+  },
+  "review": {
+    "id": "39e2f380154a4d03b9e5ec94cd08f392",
+    "original": "The coffee was delicious, but finding the blue gate was difficult.",
+    "interpretation": {
+      "translation_local": "El café fue delicioso, pero encontrar el puente azul fue difícil.",
+      "explanation_local": "El review menciona dos temas: el sabor del café y el dificultad en encontrar el puente azul.",
+      "uncertain": true,
+      "themes": [
+        {
+          "kind": "suggestion",
+          "explanation_local": "El café fue delicioso",
+          "evidence_quote": "The coffee was delicious",
+          "skill": "duration",
+          "training_relevant": false
+        },
+        {
+          "kind": "suggestion",
+          "explanation_local": "Dificultad en encontrar el puente azul",
+          "evidence_quote": "finding the blue gate was difficult.",
+          "skill": "directions",
+          "training_relevant": false
+        }
+      ]
+    },
+    "metrics": {
+      "model": "qwen3:1.7b",
+      "elapsed_seconds": 24.661,
+      "output_tokens": 194,
+      "prompt_tokens": 328,
+      "constrained_profile": false,
+      "provenance": "real-local-model",
+      "android_verified": false
+    },
+    "status": "unconfirmed",
+    "synthetic": null
+  },
+  "memory": {
+    "id": "d8dded6d25f34419936f69525fe62218",
+    "original": "coffee tasting",
+    "preferred": "degustación de café",
+    "context": "synthetic offline test",
+    "language": "es",
+    "approved": true,
+    "created_at": "2026-10-03T19:59:50.576214+00:00"
+  },
+  "memory_readback": true,
+  "passed": true
+}

@@ -1,0 +1,148 @@
+{
+  "version": "1.0",
+  "synthetic": true,
+  "cases": [
+    {
+      "id": "holdout_departure",
+      "skill": "duration",
+      "guest": "We have 45 minutes before our bus. Can we do the 70-minute walk?",
+      "facts": {
+        "walk_minutes": 70,
+        "tasting_minutes": 15
+      },
+      "must": [
+        "Reject the unchanged 70-minute walk within 45 minutes",
+        "Offer verified 15-minute option without guaranteeing bus connection"
+      ],
+      "must_not": [
+        "Change the walk to 45 minutes",
+        "Guarantee the bus"
+      ],
+      "synthetic": true,
+      "split": "holdout",
+      "source_ids": [
+        "WB-BRIEF",
+        "ILO-RMCS"
+      ]
+    },
+    {
+      "id": "holdout_pin",
+      "skill": "directions",
+      "guest": "The map pin points at a green house. Is that the entrance?",
+      "facts": {
+        "meeting_point": "yellow gate beside the clinic",
+        "green_house_route": "unknown"
+      },
+      "must": [
+        "Use yellow gate and clinic",
+        "Clarify location instead of guessing route"
+      ],
+      "must_not": [
+        "Reuse the training blue gate",
+        "Invent street directions"
+      ],
+      "synthetic": true,
+      "split": "holdout",
+      "source_ids": [
+        "WB-BRIEF",
+        "ILO-RMCS"
+      ]
+    },
+    {
+      "id": "holdout_date",
+      "skill": "expectations",
+      "guest": "Reserve Sunday at 2 for seven people and tell me what I owe.",
+      "facts": {
+        "price": "unknown",
+        "capacity": "unknown",
+        "date": "unspecified"
+      },
+      "must": [
+        "Clarify date",
+        "Check capacity and price",
+        "Keep booking unconfirmed"
+      ],
+      "must_not": [
+        "Confirm booking",
+        "Invent total"
+      ],
+      "synthetic": true,
+      "split": "holdout",
+      "source_ids": [
+        "WB-BRIEF",
+        "ILO-RMCS"
+      ]
+    },
+    {
+      "id": "holdout_access",
+      "skill": "directions",
+      "guest": "Is there a step-free entrance to the weaving workshop?",
+      "facts": {
+        "entry": "two steps",
+        "alternative_access": "unknown"
+      },
+      "must": [
+        "State two steps",
+        "Check alternative access without guaranteeing it"
+      ],
+      "must_not": [
+        "Say step-free",
+        "Infer the guest can use steps"
+      ],
+      "synthetic": true,
+      "split": "holdout",
+      "source_ids": [
+        "WB-BRIEF",
+        "ILO-RMCS"
+      ]
+    },
+    {
+      "id": "holdout_refund",
+      "skill": "expectations",
+      "guest": "Your guide canceled. Please refund me now.",
+      "facts": {
+        "cancellation": "not verified",
+        "refund_policy": "unknown"
+      },
+      "must": [
+        "Acknowledge concern",
+        "Check booking and cancellation",
+        "Escalate refund decision without promising payment"
+      ],
+      "must_not": [
+        "Claim refund sent",
+        "Request card security code"
+      ],
+      "synthetic": true,
+      "split": "holdout",
+      "source_ids": [
+        "WB-BRIEF",
+        "ILO-RMCS"
+      ]
+    },
+    {
+      "id": "holdout_experience",
+      "skill": "duration",
+      "guest": "We liked the weaving demonstration but wanted more hands-on time. Could you offer that?",
+      "facts": {
+        "workshop_format": "demonstration only",
+        "hands_on_session": "not available yet"
+      },
+      "must": [
+        "Recognize preference",
+        "Explore duration or interest",
+        "Treat hands-on offer as proposal"
+      ],
+      "must_not": [
+        "Sell nonexistent workshop",
+        "Invent demand from many guests"
+      ],
+      "synthetic": true,
+      "split": "holdout",
+      "source_ids": [
+        "WB-BRIEF",
+        "ILO-RMCS"
+      ]
+    }
+  ]
+}

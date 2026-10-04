@@ -1,0 +1,247 @@
+{
+  "kind": "synthetic-development-check",
+  "not_independent_validation": true,
+  "batch": {
+    "id": "a3d7ba1b7f3941369cf88e4bca2954ac",
+    "language": "es",
+    "reviews": [
+      {
+        "id": "572b2ee571b44b28a27fb6d813580203",
+        "original": "We loved the coffee tasting. The directions did not tell us which gate to use.",
+        "analysis": {
+          "items": [
+            {
+              "action": "preserve",
+              "evidence_quote": "We loved the coffee tasting.",
+              "explanation_local": "El sabor del café fue muy bien recibido y se conserva como experiencia positiva.",
+              "polarity": "positive",
+              "topic": "inclusions"
+            },
+            {
+              "action": "practice",
+              "evidence_quote": "The directions did not tell us which gate to use.",
+              "explanation_local": "Las indicaciones no especifican cuál puerta usar, lo que requiere práctica en comunicación.",
+              "polarity": "negative",
+              "topic": "arrival"
+            }
+          ],
+          "translation_local": "Nos encantó el sabor del café. Las indicaciones no nos dijeron cuál puerta usar.",
+          "uncertain": false
+        },
+        "metrics": {
+          "model": "qwen3:4b-instruct",
+          "elapsed_seconds": 12.786,
+          "output_tokens": 190,
+          "prompt_tokens": 252,
+          "constrained_profile": false,
+          "provenance": "real-local-model",
+          "android_verified": false
+        }
+      },
+      {
+        "id": "33b2f3434770442e86df09107932d779",
+        "original": "The tasting was wonderful. We got lost because the meeting point was unclear.",
+        "analysis": {
+          "items": [
+            {
+              "action": "preserve",
+              "evidence_quote": "The tasting was wonderful.",
+              "explanation_local": "La experiencia de degustación fue excelente, se mantiene como valor positivo.",
+              "polarity": "positive",
+              "topic": "inclusions"
+            },
+            {
+              "action": "practice",
+              "evidence_quote": "We got lost because the meeting point was unclear.",
+              "explanation_local": "Las instrucciones de encuentro fueron confusas, se practica mejor comunicación.",
+              "polarity": "negative",
+              "topic": "arrival"
+            }
+          ],
+          "translation_local": "La degustación fue maravillosa. Nos perdimos porque el punto de encuentro era confuso.",
+          "uncertain": false
+        },
+        "metrics": {
+          "model": "qwen3:4b-instruct",
+          "elapsed_seconds": 7.467,
+          "output_tokens": 185,
+          "prompt_tokens": 248,
+          "constrained_profile": false,
+          "provenance": "real-local-model",
+          "android_verified": false
+        }
+      },
+      {
+        "id": "69b7bae92f7846d3be50d3c612f97dd9",
+        "original": "The entrance sign was broken. Please repair it.",
+        "analysis": {
+          "items": [
+            {
+              "action": "improve",
+              "evidence_quote": "The entrance sign was broken.",
+              "explanation_local": "El cartel de entrada estaba roto, requiere reparación en las instalaciones físicas del lugar.",
+              "polarity": "negative",
+              "topic": "facilities"
+            },
+            {
+              "action": "improve",
+              "evidence_quote": "Please repair it.",
+              "explanation_local": "Se solicita reparación del cartel de entrada, acción clara para mejorar la infraestructura.",
+              "polarity": "positive",
+              "topic": "facilities"
+            }
+          ],
+          "translation_local": "El cartel de entrada estaba roto. Por favor, répalalo.",
+          "uncertain": false
+        },
+        "metrics": {
+          "model": "qwen3:4b-instruct",
+          "elapsed_seconds": 7.08,
+          "output_tokens": 182,
+          "prompt_tokens": 238,
+          "constrained_profile": false,
+          "provenance": "real-local-model",
+          "android_verified": false
+        }
+      }
+    ],
+    "groups": [
+      {
+        "id": "ac76a3b0649d4d83a725cec232fd01cf",
+        "topic": "inclusions",
+        "action": "preserve",
+        "polarity": "positive",
+        "sources": [
+          {
+            "review_id": "572b2ee571b44b28a27fb6d813580203",
+            "quote": "We loved the coffee tasting.",
+            "explanation_local": "El sabor del café fue muy bien recibido y se conserva como experiencia positiva."
+          },
+          {
+            "review_id": "33b2f3434770442e86df09107932d779",
+            "quote": "The tasting was wonderful.",
+            "explanation_local": "La experiencia de degustación fue excelente, se mantiene como valor positivo."
+          }
+        ],
+        "uncertain": false,
+        "review_count": 2,
+        "can_practice": false,
+        "different_views": false
+      },
+      {
+        "id": "35b6aa06b8c4460ba37d6e92e9164366",
+        "topic": "arrival",
+        "action": "practice",
+        "polarity": "negative",
+        "sources": [
+          {
+            "review_id": "572b2ee571b44b28a27fb6d813580203",
+            "quote": "The directions did not tell us which gate to use.",
+            "explanation_local": "Las indicaciones no especifican cuál puerta usar, lo que requiere práctica en comunicación."
+          },
+          {
+            "review_id": "33b2f3434770442e86df09107932d779",
+            "quote": "We got lost because the meeting point was unclear.",
+            "explanation_local": "Las instrucciones de encuentro fueron confusas, se practica mejor comunicación."
+          }
+        ],
+        "uncertain": false,
+        "review_count": 2,
+        "can_practice": true,
+        "different_views": false
+      },
+      {
+        "id": "7fcbebef804e414aab31563ae5c824b2",
+        "topic": "facilities",
+        "action": "improve",
+        "polarity": "negative",
+        "sources": [
+          {
+            "review_id": "69b7bae92f7846d3be50d3c612f97dd9",
+            "quote": "The entrance sign was broken.",
+            "explanation_local": "El cartel de entrada estaba roto, requiere reparación en las instalaciones físicas del lugar."
+          }
+        ],
+        "uncertain": false,
+        "review_count": 1,
+        "can_practice": false,
+        "different_views": true
+      },
+      {
+        "id": "ef323fe8b85e454b9e7e85bb2a152078",
+        "topic": "facilities",
+        "action": "improve",
+        "polarity": "positive",
+        "sources": [
+          {
+            "review_id": "69b7bae92f7846d3be50d3c612f97dd9",
+            "quote": "Please repair it.",
+            "explanation_local": "Se solicita reparación del cartel de entrada, acción clara para mejorar la infraestructura."
+          }
+        ],
+        "uncertain": false,
+        "review_count": 1,
+        "can_practice": false,
+        "different_views": true
+      }
+    ],
+    "duplicates_omitted": 0,
+    "created_at": "2026-10-04T02:00:28.570431+00:00",
+    "note": "Counts refer to distinct submitted review texts, not verified unique guests."
+  },
+  "lesson": {
+    "id": "0dee0bc509ad4bdf8ecced3bb4319b67",
+    "batch_id": "a3d7ba1b7f3941369cf88e4bca2954ac",
+    "group_id": "35b6aa06b8c4460ba37d6e92e9164366",
+    "skill": "directions",
+    "scenario_id": "no_map",
+    "reason_local": "Las indicaciones no especifican cuál puerta usar, lo que requiere práctica en comunicación.",
+    "evidence_quote": "The directions did not tell us which gate to use.",
+    "sources": [
+      {
+        "review_id": "572b2ee571b44b28a27fb6d813580203",
+        "quote": "The directions did not tell us which gate to use.",
+        "explanation_local": "Las indicaciones no especifican cuál puerta usar, lo que requiere práctica en comunicación."
+      },
+      {
+        "review_id": "33b2f3434770442e86df09107932d779",
+        "quote": "We got lost because the meeting point was unclear.",
+        "explanation_local": "Las instrucciones de encuentro fueron confusas, se practica mejor comunicación."
+      }
+    ],
+    "approved": true,
+    "topic": "arrival"
+  },
+  "practice": {
+    "opening": "When arriving, which gate should we use to get to the main entrance?",
+    "facts": {
+      "meeting_point": "farm entrance beside the blue gate",
+      "landmark": "cooperative building",
+      "relative_position": "entrance opposite the cooperative building"
+    },
+    "personalization": {
+      "observation": null,
+      "review_focus": "Las indicaciones no especifican cuál puerta usar, lo que requiere práctica en comunicación."
+    }
+  },
+  "reviewer_notes": {
+    "scope": "One synthetic, developer-inspected example; not a held-out benchmark or fluent-speaker validation.",
+    "observed_success": [
+      "Two arrival communication complaints grouped with two source quotes.",
+      "Two tasting compliments grouped separately.",
+      "Broken sign routed to business decision rather than communication practice.",
+      "Generated practice opening asks which gate to use; exercise facts preserved."
+    ],
+    "observed_failures": [
+      "Repair request mislabeled positive, causing a false different-views label.",
+      "First translation narrows coffee tasting to coffee flavor; translation fidelity still imperfect."
+    ],
+    "subsequent_guard": "Positive polarity with improve/practice now marks the review uncertain. Different views requires opposite positive/negative sentiment from different, non-uncertain source texts. Covered by regression tests; raw output above predates that guard.",
+    "not_claimed": [
+      "Learning gains",
+      "Operator adoption",
+      "Android inference",
+      "Complete semantic reliability"
+    ]
+  }
+}

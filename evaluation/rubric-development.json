@@ -1,0 +1,157 @@
+{
+  "split": "development",
+  "synthetic": true,
+  "scoring": "Author-defined expected ranges; not native-speaker or expert validation",
+  "cases": [
+    {
+      "scenario_id": "booking_ambiguous",
+      "response": "Sí, su reserva está confirmada para mañana a las tres. Son diez dólares por persona.",
+      "expected": {
+        "factual_accuracy": [
+          0
+        ]
+      },
+      "actual": {
+        "id": "a7449c6b4bbe4742b9a7cb7cf995efa4",
+        "response": "Sí, su reserva está confirmada para mañana a las tres. Son diez dólares por persona.",
+        "guest_message": "Can the four of us come tomorrow afternoon? How much is it?",
+        "assessment": {
+          "strength_local": "El operador responde directamente a la solicitud de fecha y costo, sin convertir la consulta en una reserva.",
+          "improvement_local": "Pide confirmación de disponibilidad y precio antes de finalizar la reserva para evitar inventar información.",
+          "evidence_quote": "Sí, su reserva está confirmada para mañana a las tres. Son diez dólares por persona.",
+          "uncertain": false,
+          "answers_request": 2,
+          "factual_accuracy": 2,
+          "clarifies_unknowns": 2,
+          "next_step": 2
+        },
+        "status": "pending",
+        "metrics": {
+          "model": "qwen3:1.7b",
+          "elapsed_seconds": 6.11,
+          "output_tokens": 136,
+          "prompt_tokens": 840,
+          "constrained_profile": false,
+          "provenance": "real-local-model",
+          "android_verified": false
+        },
+        "created_at": "2026-10-03T19:48:07.080345+00:00"
+      },
+      "passed": false
+    },
+    {
+      "scenario_id": "wrong_gate",
+      "response": "Turn left from the red gate and walk exactly 500 metres. I know that is correct.",
+      "expected": {
+        "factual_accuracy": [
+          0
+        ]
+      },
+      "actual": {
+        "id": "7c62429600e34fc4970f17b94c3eaaee",
+        "response": "Turn left from the red gate and walk exactly 500 metres. I know that is correct.",
+        "guest_message": "We are at a red gate near some fields. Nobody is here. Where are you?",
+        "assessment": {
+          "strength_local": "El operador identifica el punto de encuentro y proporciona una dirección clara.",
+          "improvement_local": "Pide un punto de referencia visible en lugar de suponer la ruta.",
+          "evidence_quote": "Turn left from the red gate and walk exactly 500 metres. I know that is correct.",
+          "uncertain": false,
+          "answers_request": 2,
+          "factual_accuracy": 2,
+          "clarifies_unknowns": 2,
+          "next_step": 2
+        },
+        "status": "pending",
+        "metrics": {
+          "model": "qwen3:1.7b",
+          "elapsed_seconds": 2.838,
+          "output_tokens": 124,
+          "prompt_tokens": 835,
+          "constrained_profile": false,
+          "provenance": "real-local-model",
+          "android_verified": false
+        },
+        "created_at": "2026-10-03T19:48:09.925402+00:00"
+      },
+      "passed": false
+    },
+    {
+      "scenario_id": "photos_consent",
+      "response": "Yes, you have permission to photograph my whole family and post everything online.",
+      "expected": {
+        "factual_accuracy": [
+          0
+        ]
+      },
+      "actual": {
+        "id": "6915d28da2b94ceeab8787fc2831d6b2",
+        "response": "Yes, you have permission to photograph my whole family and post everything online.",
+        "guest_message": "Can I photograph your family and post the pictures on my travel page?",
+        "assessment": {
+          "strength_local": "The operator correctly explained permission to photograph the family and offered to ask without speaking for family members.",
+          "improvement_local": "The operator should explicitly ask the guest to confirm their consent before taking photos, to ensure clarity and respect for personal boundaries.",
+          "evidence_quote": "Yes, you have permission to photograph my whole family and post everything online.",
+          "uncertain": false,
+          "answers_request": 2,
+          "factual_accuracy": 2,
+          "clarifies_unknowns": 2,
+          "next_step": 2
+        },
+        "status": "pending",
+        "metrics": {
+          "model": "qwen3:1.7b",
+          "elapsed_seconds": 2.928,
+          "output_tokens": 129,
+          "prompt_tokens": 848,
+          "constrained_profile": false,
+          "provenance": "real-local-model",
+          "android_verified": false
+        },
+        "created_at": "2026-10-03T19:48:12.857132+00:00"
+      },
+      "passed": false
+    },
+    {
+      "scenario_id": "short_visit",
+      "response": "La degustación dura 20 minutos; el recorrido completo dura 60. ¿A qué hora necesitan comenzar?",
+      "expected": {
+        "factual_accuracy": [
+          2
+        ],
+        "answers_request": [
+          1,
+          2
+        ]
+      },
+      "actual": {
+        "id": "1e44c28610854825899615ef3fbf1bf8",
+        "response": "La degustación dura 20 minutos; el recorrido completo dura 60. ¿A qué hora necesitan comenzar?",
+        "guest_message": "Our driver leaves in 30 minutes. Can we still do something meaningful?",
+        "assessment": {
+          "strength_local": "El operador ofrece la degustación de 20 minutos, cumpliendo con el límite de 30 minutos.",
+          "improvement_local": "Preguntar la hora exacta en la que el cliente quiere comenzar la actividad para garantizar la disponibilidad.",
+          "evidence_quote": "¿A qué hora necesitan comenzar?",
+          "uncertain": false,
+          "answers_request": 2,
+          "factual_accuracy": 2,
+          "clarifies_unknowns": 2,
+          "next_step": 2
+        },
+        "status": "pending",
+        "metrics": {
+          "model": "qwen3:1.7b",
+          "elapsed_seconds": 2.988,
+          "output_tokens": 131,
+          "prompt_tokens": 873,
+          "constrained_profile": false,
+          "provenance": "real-local-model",
+          "android_verified": false
+        },
+        "created_at": "2026-10-03T19:48:15.848732+00:00"
+      },
+      "passed": true
+    }
+  ],
+  "passed": 1,
+  "total": 4
+}

@@ -27,6 +27,7 @@ class AgentTests(unittest.TestCase):
             r=HospitalityAgent(c).run('Help with directions')
             self.assertEqual(r['result']['skill'],'directions')
             self.assertEqual(len(m.contexts[0]['approved_phrases']),1)
+            self.assertIn('learner_memory',m.contexts[0])
             self.assertEqual(c.all('agent_run')[0]['id'],r['id'])
             self.assertEqual(r['trace'][-1],'end')
         finally: c.close()

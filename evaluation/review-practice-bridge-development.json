@@ -1,0 +1,53 @@
+{
+  "groups": [
+    {
+      "id": "bf499e9dc77a4802852a7b2f83cb10e2",
+      "topic": "other",
+      "action": "improve",
+      "polarity": "negative",
+      "sources": [
+        {
+          "review_id": "7317c749dafb44e4a9a0d226b5e89e84",
+          "quote": "the coffee was really bad and the people were rude",
+          "explanation_local": "bad coffee is product quality, so it requires improvement in facilities or offerings."
+        }
+      ],
+      "uncertain": false,
+      "review_count": 1,
+      "can_practice": false,
+      "different_views": false
+    },
+    {
+      "id": "39766675e9b9444dbb1cd3084772c715",
+      "topic": "hospitality",
+      "action": "practice",
+      "polarity": "negative",
+      "sources": [
+        {
+          "review_id": "7317c749dafb44e4a9a0d226b5e89e84",
+          "quote": "the coffee was really bad and the people were rude",
+          "explanation_local": "rude people indicate poor hospitality, a skill to practice for staff training."
+        }
+      ],
+      "uncertain": false,
+      "review_count": 1,
+      "can_practice": true,
+      "different_views": false
+    }
+  ],
+  "practice": {
+    "scenario_id": "service_recovery",
+    "guest_message": "I felt brushed off when I asked for help. Can we talk?",
+    "personalization": {
+      "observation": null,
+      "review_focus": "rude people indicate poor hospitality, a skill to practice for staff training.",
+      "review_sources": [
+        {
+          "review_id": "7317c749dafb44e4a9a0d226b5e89e84",
+          "quote": "the coffee was really bad and the people were rude",
+          "explanation_local": "rude people indicate poor hospitality, a skill to practice for staff training."
+        }
+      ]
+    }
+  }
+}

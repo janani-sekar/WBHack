@@ -3,6 +3,7 @@ import argparse
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse
+from pathlib import Path
 from .coach import Coach, SCENARIOS
 from .model import OllamaModel, ModelError
 
@@ -32,11 +33,23 @@ def make_handler(coach):
             self.dispatch('DELETE')
 
         def dispatch(self, method):
-            # Refuse browser-origin cross-site requests; this API is currently for CLI/local clients.
-            if self.headers.get('Origin'):
-                return self.send(403, {'error': 'Browser-origin requests are disabled in this backend-only build'})
-            if urlparse('http://' + self.headers.get('Host', '')).hostname not in ('127.0.0.1','localhost','::1'):
+            host = self.headers.get('Host', '')
+            if urlparse('http://' + host).hostname not in ('127.0.0.1','localhost','::1'):
                 return self.send(403, {'error': 'Loopback Host required'})
+            origin = self.headers.get('Origin')
+            if (origin and origin != 'http://' + host) or self.headers.get('Sec-Fetch-Site') == 'cross-site':
+                return self.send(403, {'error': 'Same-origin local requests only'})
+            if method == 'GET' and urlparse(self.path).path == '/':
+                payload = (Path(__file__).parent / 'ui' / 'index.html').read_bytes()
+                self.send_response(200)
+                self.send_header('Content-Type', 'text/html; charset=utf-8')
+                self.send_header('Cache-Control', 'no-store')
+                self.send_header('X-Content-Type-Options', 'nosniff')
+                self.send_header('Content-Security-Policy', "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'")
+                self.send_header('Content-Length', str(len(payload)))
+                self.end_headers()
+                self.wfile.write(payload)
+                return
             try:
                 body = {}
                 if method == 'POST':
@@ -51,8 +64,31 @@ def make_handler(coach):
                 path = urlparse(self.path).path.strip('/').split('/')
                 if method == 'GET' and path == ['health']:
                     result = coach.model.health()
+                elif method == 'POST' and path == ['agent']:
+                    try:
+                        from .agent import HospitalityAgent
+                    except ImportError:
+                        raise ModelError('Agent dependencies missing. Start with .venv/bin/python after installing requirements-agent.txt')
+                    result = HospitalityAgent(coach).run(**body)
+                elif method == 'GET' and path == ['curriculum']:
+                    from .curriculum import CASES, public_case
+                    result = [public_case(c) for c in CASES.values()]
+                elif method == 'GET' and path == ['learning-plan']:
+                    result = coach.learning_plan()
                 elif method == 'GET' and path == ['scenarios']:
                     result = SCENARIOS
+                elif method == 'GET' and path == ['learning-settings']:
+                    result = coach.learning_settings()
+                elif method == 'GET' and path == ['learner-memory']:
+                    result = coach.learner_memory()
+                elif method == 'POST' and len(path) == 3 and path[0] == 'sessions' and path[2] == 'coach-language':
+                    result = coach.coaching_language(path[1], **body)
+                elif method == 'POST' and len(path) == 3 and path[0] == 'sessions' and path[2] == 'finish':
+                    result = coach.session_summary(path[1])
+                elif method == 'POST' and path == ['learning-settings']:
+                    result = coach.save_learning_settings(**body)
+                elif method == 'POST' and len(path) == 3 and path[0] == 'sessions' and path[2] == 'language':
+                    result = coach.guest_language(path[1], **body)
                 elif method == 'GET' and path == ['profile']:
                     result = coach.get('profile', 'default')
                 elif method == 'POST' and path == ['profile']:
@@ -75,6 +111,18 @@ def make_handler(coach):
                     result = coach.next_guest(path[1])
                 elif method == 'POST' and len(path) == 3 and path[0] == 'sessions' and path[2] == 'assessment':
                     result = coach.approve_assessment(path[1], **body)
+                elif method == 'POST' and path == ['review-batches']:
+                    result = coach.review_batch(**body)
+                elif method == 'GET' and path == ['review-batches']:
+                    result = coach.all('review_batch')
+                elif method == 'POST' and path == ['batch-lessons']:
+                    result = coach.batch_lesson(**body)
+                elif method == 'POST' and path == ['practice-drafts']:
+                    result = coach.practice_draft(**body)
+                elif method == 'POST' and len(path)==2 and path[0]=='drafts':
+                    result = coach.approve_draft(path[1],**body)
+                elif method == 'GET' and path == ['drafts']:
+                    result = coach.all('draft')
                 elif method == 'POST' and path == ['reviews']:
                     result = coach.understand_review(**body)
                 elif method == 'GET' and path == ['reviews']:
@@ -99,11 +147,12 @@ def make_handler(coach):
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--model', choices=['qwen3:1.7b','qwen3:4b-instruct'], default='qwen3:1.7b')
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--db', default='data/private/coach.sqlite3')
     parser.add_argument('--constrained', action='store_true', help='CPU-only two-thread desktop surrogate, NOT an Android emulator')
     args = parser.parse_args()
-    coach = Coach(OllamaModel(constrained=args.constrained), args.db)
+    coach = Coach(OllamaModel(model=args.model, constrained=args.constrained), args.db)
     server = HTTPServer(('127.0.0.1', args.port), make_handler(coach))
     print(f'AI backend: http://127.0.0.1:{args.port} (desktop harness; Android unverified)', flush=True)
     try:

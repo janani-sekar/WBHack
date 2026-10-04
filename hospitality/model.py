@@ -42,13 +42,14 @@ def obj(**fields):
 
 TEXT = {'type': 'string', 'maxLength': 600}
 BOOL = {'type': 'boolean'}
+FACT_CHECK = obj(verdict={'type':'string','enum':['unsupported','supported','uncertain']},reason=TEXT)
 SCORE = {'type': 'integer', 'minimum': 0, 'maximum': 2}
 SKILLS = ('duration', 'directions', 'expectations')
 SKILL = {'type': 'string', 'enum': list(SKILLS)}
 TURN = obj(guest_message=TEXT)
 ASSESSMENT = obj(strength_local=TEXT, improvement_local=TEXT, evidence_quote=TEXT,
                  uncertain=BOOL, answers_request=SCORE, factual_accuracy=SCORE,
-                 clarifies_unknowns=SCORE, next_step=SCORE)
+                 clarifies_unknowns=SCORE, next_step=SCORE, customer_tone=SCORE)
 THEME = obj(kind={'type': 'string', 'enum': ['positive', 'concern', 'suggestion']},
             explanation_local=TEXT, evidence_quote=TEXT, skill=SKILL,
             training_relevant=BOOL)
@@ -62,8 +63,8 @@ class OllamaModel:
         if (u.scheme != 'http' or u.hostname not in ('127.0.0.1', '::1', 'localhost')
                 or u.username or u.password or u.path not in ('', '/') or u.query or u.fragment):
             raise ValueError('Inference endpoint must be loopback HTTP')
-        if model != 'qwen3:1.7b':
-            raise ValueError('This build only permits the local qwen3:1.7b model')
+        if model not in ('qwen3:1.7b', 'qwen3:4b-instruct'):
+            raise ValueError('This build only permits approved local Qwen models')
         self.base_url = base_url.rstrip('/')
         self.model = model
         self.timeout = timeout
@@ -81,7 +82,7 @@ class OllamaModel:
                 raise ModelError('Model response too large')
             return json.loads(raw)
         except (OSError, ValueError, urllib.error.URLError) as exc:
-            raise ModelError('Local model unavailable or returned invalid data. Start Ollama and pull qwen3:1.7b.') from exc
+            raise ModelError('Local model unavailable or returned invalid data. Start Ollama and install the selected local model.') from exc
 
     def health(self):
         data = self._request('/api/tags')

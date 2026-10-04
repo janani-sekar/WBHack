@@ -1,0 +1,17 @@
+{
+  "assessment": {
+    "answers_request": 1,
+    "clarifies_unknowns": 0,
+    "customer_tone": 1,
+    "evidence_quote": "Lunch is not included, obviously.",
+    "factual_accuracy": 0,
+    "improvement_local": "Avoid 'obviously' to sound dismissive. Instead say: 'Lunch is not included, as per our tour details.'",
+    "next_step": 1,
+    "strength_local": "Lunch is not included",
+    "uncertain": false
+  },
+  "fact_check": {
+    "reason": "The response states 'Lunch is not included, obviously', which is supported by the fact that 'lunch_included': false. The phrase 'obviously' is a tone, not a factual claim, and does not constitute an unsupported assertion. The instruction to 'read the description' is a polite suggestion, not a factual claim. Therefore, the factual claim in the response is supported by the provided facts.",
+    "verdict": "supported"
+  }
+}

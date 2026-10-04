@@ -8,7 +8,7 @@ from hospitality.model import OllamaModel, ModelError, ASSESSMENT, REVIEW, valid
 
 ASSESS = dict(strength_local='நேரத்தை விளக்கினீர்கள்.', improvement_local='அடுத்த படியை விளக்குங்கள்.',
               evidence_quote='twenty minutes', uncertain=False, answers_request=2,
-              factual_accuracy=2, clarifies_unknowns=2, next_step=1)
+              factual_accuracy=2, clarifies_unknowns=2, next_step=1, customer_tone=2)
 REVIEW_OUTPUT = dict(translation_local='வழிகள் தெளிவாக இல்லை.', explanation_local='வழிகளை விளக்கலாம்.', uncertain=False,
                     themes=[dict(kind='concern', explanation_local='வழிகளை விளக்கலாம்.', evidence_quote='The directions were confusing.',
                                  skill='directions', training_relevant=True)])
@@ -22,6 +22,10 @@ class FakeModel:
 
     def generate(self, instruction, context, schema):
         self.calls.append(copy.deepcopy(context))
+        if 'verdict' in schema['properties']:
+            return {'verdict':'supported','reason':'Test fixture only'}, {'provenance':'test-fixture'}
+        if set(schema['properties'])=={'customer_tone'}:
+            return {'customer_tone':2}, {'provenance':'test-fixture'}
         result = self.output
         if result is None:
             result = ASSESS if schema == ASSESSMENT else REVIEW_OUTPUT if 'translation_local' in schema.get('properties',{}) else {'guest_message':'Can we do a short tasting?'}

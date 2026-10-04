@@ -1,0 +1,165 @@
+{
+  "model": "qwen3:4b-instruct",
+  "synthetic": true,
+  "opening": "hey we have 30 mins before our ride leaves… is there still time for anything?",
+  "turns": [
+    {
+      "id": "e7a859cd35404953a905140380ae3ca0",
+      "response": "The tasting takes 20 minutes and the full tour takes 60. What time do you need to start?",
+      "guest_message": "hey we have 30 mins before our ride leaves… is there still time for anything?",
+      "assessment": {
+        "answers_request": 2,
+        "clarifies_unknowns": 2,
+        "evidence_quote": "What time do you need to start?",
+        "factual_accuracy": 0,
+        "improvement_local": "No confirmes datos que no están verificados. Explica qué necesitas comprobar y vuelve a intentarlo.",
+        "next_step": 2,
+        "strength_local": "Has intentado responder a la consulta; revisemos primero los datos.",
+        "uncertain": false
+      },
+      "status": "pending",
+      "metrics": {
+        "model": "qwen3:4b-instruct",
+        "elapsed_seconds": 15.463,
+        "output_tokens": 118,
+        "prompt_tokens": 963,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      },
+      "fact_check": {
+        "reason": "The response asks a question about start time, but the facts provided do not contain any information about start times or scheduling. Therefore, the claim that 'What time do you need to start?' is unsupported by the given facts.",
+        "verdict": "unsupported"
+      },
+      "fact_check_metrics": {
+        "model": "qwen3:4b-instruct",
+        "elapsed_seconds": 3.728,
+        "output_tokens": 57,
+        "prompt_tokens": 156,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      },
+      "created_at": "2026-10-03T23:51:20.642910+00:00",
+      "question_index": 0,
+      "followup": "Hola… Solo tenemos media hora antes de que salga el conductor. ¿Podemos hacer algo?"
+    },
+    {
+      "id": "81cbdbbdea99485091965c21b0964349",
+      "response": "We can discuss the 20-minute tasting, but I need to check the start time before confirming. How many people are with you?",
+      "guest_message": "Hola… Solo tenemos media hora antes de que salga el conductor. ¿Podemos hacer algo?",
+      "assessment": {
+        "answers_request": 1,
+        "clarifies_unknowns": 0,
+        "evidence_quote": "I need to check the start time before confirming",
+        "factual_accuracy": 1,
+        "improvement_local": "Ask when the guest needs to start instead of asking about group size",
+        "next_step": 1,
+        "strength_local": "Recognizes the 30-minute limit and offers a tasting option",
+        "uncertain": false
+      },
+      "status": "pending",
+      "metrics": {
+        "model": "qwen3:4b-instruct",
+        "elapsed_seconds": 7.264,
+        "output_tokens": 107,
+        "prompt_tokens": 968,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      },
+      "fact_check": {
+        "reason": "The response does not make any unsupported claims. It acknowledges a need to check the start time, which is a reasonable and unasserted action. The mention of a 20-minute tasting is consistent with the provided facts. There is no claim about confirmed availability, price, directions, or permission that is unsupported by the facts. The question about how many people are with you is a neutral inquiry, not a promise or assertion.",
+        "verdict": "supported"
+      },
+      "fact_check_metrics": {
+        "model": "qwen3:4b-instruct",
+        "elapsed_seconds": 7.287,
+        "output_tokens": 98,
+        "prompt_tokens": 160,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      },
+      "created_at": "2026-10-03T23:51:38.190318+00:00",
+      "question_index": 1,
+      "followup": "We can do the 20-minute tasting, but I need to know when you need to start. Can you confirm the start time?"
+    },
+    {
+      "id": "3d87b2b18ce946f1b704848c04e51198",
+      "response": "Thank you. I will check whether we can fit your group before your driver leaves. I cannot confirm it yet.",
+      "guest_message": "We can do the 20-minute tasting, but I need to know when you need to start. Can you confirm the start time?",
+      "assessment": {
+        "answers_request": 2,
+        "clarifies_unknowns": 1,
+        "evidence_quote": "I cannot confirm it yet",
+        "factual_accuracy": 1,
+        "improvement_local": "Confirm the 20-minute tasting is available and ask for start time directly",
+        "next_step": 1,
+        "strength_local": "Acknowledges time constraint and offers to check availability",
+        "uncertain": false
+      },
+      "status": "pending",
+      "metrics": {
+        "model": "qwen3:4b-instruct",
+        "elapsed_seconds": 10.31,
+        "output_tokens": 101,
+        "prompt_tokens": 971,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      },
+      "fact_check": {
+        "reason": "The response does not make any unsupported claims. It acknowledges uncertainty about fitting the group and states that confirmation will happen after the driver leaves. There is no factual assertion about availability, price, directions, or permission that is unverified or unknown. The response is appropriately cautious and does not overpromise. All factual claims in the response are either neutral or conditional, with no definitive statements that could be considered unsupported.",
+        "verdict": "supported"
+      },
+      "fact_check_metrics": {
+        "model": "qwen3:4b-instruct",
+        "elapsed_seconds": 11.438,
+        "output_tokens": 93,
+        "prompt_tokens": 155,
+        "constrained_profile": false,
+        "provenance": "real-local-model",
+        "android_verified": false
+      },
+      "created_at": "2026-10-03T23:52:04.925499+00:00",
+      "question_index": 2
+    }
+  ],
+  "review": {
+    "id": "422e6af0e4f5405fa53fdbac7b1d6082",
+    "original": "We loved tasting the coffee and hearing how your family grows it. We arrived late because the map took us to the wrong gate. A landmark in the directions would have helped.",
+    "interpretation": {
+      "explanation_local": "El cliente disfrutó del café y la historia familiar, pero llegó tarde por una dirección incorrecta y sugiere un punto de referencia más claro.",
+      "themes": [
+        {
+          "evidence_quote": "We loved tasting the coffee and hearing how your family grows it.",
+          "explanation_local": "El cliente valoró la experiencia del café y la conexión familiar.",
+          "kind": "positive",
+          "skill": "duration",
+          "training_relevant": false
+        },
+        {
+          "evidence_quote": "We arrived late because the map took us to the wrong gate.",
+          "explanation_local": "La dirección en el mapa fue inexacta, causando retraso en la llegada.",
+          "kind": "positive",
+          "skill": "directions",
+          "training_relevant": true
+        }
+      ],
+      "translation_local": "Nos encantó probar el café y escuchar cómo vuestra familia lo cultiva. Llegamos tarde porque el mapa nos llevó a la puerta equivocada. Un punto de referencia en las instrucciones habría ayudado.",
+      "uncertain": false
+    },
+    "metrics": {
+      "model": "qwen3:4b-instruct",
+      "elapsed_seconds": 25.722,
+      "output_tokens": 262,
+      "prompt_tokens": 366,
+      "constrained_profile": false,
+      "provenance": "real-local-model",
+      "android_verified": false
+    },
+    "status": "unconfirmed",
+    "synthetic": null
+  }
+}

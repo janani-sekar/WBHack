@@ -1,0 +1,51 @@
+[
+  {
+    "operator_replies": [
+      "lunch is included! congrats"
+    ],
+    "guest": "So lunch is included, great! What exactly do we do during the visit?"
+  },
+  {
+    "operator_replies": [
+      "lunch is included! congrats",
+      "no lunch is included"
+    ],
+    "guest": "You said lunch is included, then said it's not. Which is correct?"
+  },
+  {
+    "operator_reply": "Lunch is not included, obviously. Read the description.",
+    "assessment": {
+      "answers_request": 1,
+      "clarifies_unknowns": 0,
+      "customer_tone": 1,
+      "evidence_quote": "Lunch is not included, obviously.",
+      "factual_accuracy": 0,
+      "improvement_local": "Say what you need to check instead of confirming an unknown detail.",
+      "next_step": 1,
+      "strength_local": "You responded to the guest; check the facts before using this reply.",
+      "uncertain": false
+    },
+    "fact_check": {
+      "reason": "The response correctly states that lunch is not included, which is supported by the fact that 'lunch_included: false' in the facts. The statement 'obviously' is not factually supported by the data, as it implies certainty without evidence. However, the core factual claim—lunch is not included—is accurate and supported. The use of 'obviously' introduces an unsupported assertion of certainty. Therefore, the response contains an unsupported claim.",
+      "verdict": "unsupported"
+    }
+  },
+  {
+    "operator_reply": "The visit includes a farm walk, coffee preparation demonstration and tasting. Lunch is not included. Would you like to hear more about the tasting?",
+    "assessment": {
+      "answers_request": 2,
+      "clarifies_unknowns": 2,
+      "customer_tone": 2,
+      "evidence_quote": "Lunch is not included.",
+      "factual_accuracy": 2,
+      "improvement_local": "Clarify if the guest is interested in the tasting experience, as it may align with their interest.",
+      "next_step": 2,
+      "strength_local": "Names all included activities clearly.",
+      "uncertain": false
+    },
+    "fact_check": {
+      "reason": "The response accurately reflects the facts provided: it lists the included activities (farm walk, coffee preparation demonstration, coffee tasting) and correctly states that lunch is not included. The follow-up question about the tasting is appropriate and does not make any unsupported claims. All factual claims in the response are supported by the given facts.",
+      "verdict": "supported"
+    }
+  }
+]
