@@ -1,6 +1,7 @@
 package org.wbhack.coach
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -27,5 +28,12 @@ class FeedbackTest {
         assertEquals("Not included", en.factValue("lunch_included", "false"))
         assertEquals("Meeting point", en.factLabel("meeting_point"))
         assertEquals("Parcial", es.result(1.5))
+    }
+
+    @Test
+    fun modelDelaysAreRetryableNotFailures() {
+        assertTrue(isModelDelay(java.net.SocketTimeoutException("timeout")))
+        assertTrue(isModelDelay(CoachApiException("Local model unavailable", retryable = true)))
+        assertFalse(isModelDelay(CoachApiException("response required")))
     }
 }

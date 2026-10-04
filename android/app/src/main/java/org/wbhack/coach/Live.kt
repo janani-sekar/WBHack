@@ -27,6 +27,10 @@ private val Mist = Color(0xFFE8EDE3)
 private val LANGUAGES = listOf("en" to "English", "es" to "Español")
 
 /** State for the screens backed by the local coach; mirrors the desktop web UI. */
+/** Timeouts and backend `retryable` errors mean the local model was slow or still loading, not a bad request. */
+internal fun isModelDelay(e: Throwable) =
+    e is java.net.SocketTimeoutException || (e is CoachApiException && e.retryable)
+
 class LiveModel(val api: CoachApi, private val scope: CoroutineScope) {
     var tab by mutableIntStateOf(0)
     var cases by mutableStateOf(emptyList<Case>())
@@ -38,6 +42,9 @@ class LiveModel(val api: CoachApi, private val scope: CoroutineScope) {
     var practice by mutableStateOf<LiveSession?>(null)
     var busy by mutableStateOf<String?>(null)
     var error by mutableStateOf<String?>(null)
+    var slow by mutableStateOf(false)
+    var canRetry by mutableStateOf(false)
+    private var retryAction: (() -> Unit)? = null
 
     suspend fun load() {
         cases = io { api.curriculum() }
@@ -57,11 +64,19 @@ class LiveModel(val api: CoachApi, private val scope: CoroutineScope) {
     fun run(message: String, block: suspend () -> Unit) {
         if (busy != null) return
         scope.launch {
-            busy = message; error = null
+            busy = message; error = null; canRetry = false
+            retryAction = { run(message, block) }
             try { block() } catch (e: CancellationException) { throw e } catch (e: Exception) {
                 error = e.message ?: e.javaClass.simpleName
+                slow = isModelDelay(e)
+                canRetry = true
             } finally { busy = null }
         }
+    }
+
+    fun retry() {
+        error = null
+        retryAction?.invoke()
     }
 
     fun start(scenarioId: String, tr: Tr, lessonId: String? = null, independent: Boolean = false) =
@@ -85,13 +100,24 @@ class LiveModel(val api: CoachApi, private val scope: CoroutineScope) {
         run(tr("Reading your reply…", "Leyendo tu respuesta…")) {
             io { api.respond(id, text) }
             sent()
+            retryAction = { advance(id, tr) }
             practice = io { api.session(id) }
             refresh()
-            if (practice!!.turns.size < 3) {
-                busy = tr("Your guest is replying…", "Tu huésped está respondiendo…")
-                practice = io { api.next(id) }
-            } else practice = io { api.finish(id) }
+            advanceStep(id, tr)
         }
+    }
+
+    private fun advance(id: String, tr: Tr) =
+        run(tr("Your guest is replying…", "Tu huésped está respondiendo…")) {
+            practice = io { api.session(id) }
+            advanceStep(id, tr)
+        }
+
+    private suspend fun advanceStep(id: String, tr: Tr) {
+        if (practice!!.turns.size < 3) {
+            busy = tr("Your guest is replying…", "Tu huésped está respondiendo…")
+            practice = io { api.next(id) }
+        } else practice = io { api.finish(id) }
     }
 
     fun nextGuest(tr: Tr) = practice?.id?.let { id ->
@@ -192,8 +218,12 @@ internal fun LiveStatus(model: LiveModel, tr: Tr) {
     model.error?.let {
         Row(Modifier.fillMaxWidth().background(Color(0xFFF6E3DC)).padding(horizontal = 20.dp, vertical = 6.dp),
             verticalAlignment = Alignment.CenterVertically) {
-            Text(tr("Couldn’t finish that step: ", "No se pudo completar: ") + it, Modifier.weight(1f),
-                style = MaterialTheme.typography.bodySmall)
+            Text(if (model.slow) tr(
+                    "The local coach took too long or isn’t ready yet. Nothing was lost; try again in a moment.",
+                    "El coach local tardó demasiado o aún no está listo. No se perdió nada; inténtalo de nuevo en un momento.")
+                else tr("Couldn’t finish that step: ", "No se pudo completar: ") + it,
+                Modifier.weight(1f), style = MaterialTheme.typography.bodySmall)
+            if (model.canRetry) TextButton(onClick = model::retry) { Text(tr("Try again", "Reintentar")) }
             TextButton(onClick = { model.error = null }) { Text("OK") }
         }
     }
