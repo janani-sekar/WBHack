@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "language": "es",
   "synthetic": true,
   "cases": [
@@ -11,14 +11,16 @@
       "guest": "Our driver leaves in 30 minutes. Can we still do something meaningful?",
       "facts": {
         "full_tour_minutes": 60,
-        "tasting_minutes": 20
+        "tasting_minutes": 20,
+        "tasting_location": "seated tasting area beside the entrance; no hill walk",
+        "start_arrangement": "host can check the next tasting start before the guest commits"
       },
       "goal": "Recognize the 30-minute limit; Offer the verified 20-minute tasting, not the full tour; Ask when the guest needs to start",
       "rubric": {
         "answers_request": {
           "0": "Misses the main request or reverses its meaning",
           "1": "Addresses only part of the request",
-          "2": "Recognize the 30-minute limit"
+          "2": "Address the 30-minute limit and offer the 20-minute seated tasting"
         },
         "factual_accuracy": {
           "0": "Contradicts facts or invents a promise, price, policy or safety claim",
@@ -28,12 +30,17 @@
         "clarifies_unknowns": {
           "0": "Guesses a missing detail or ignores necessary clarification",
           "1": "Identifies the gap but does not ask a useful question or offer a check",
-          "2": "Offer the verified 20-minute tasting, not the full tour"
+          "2": "Ask when they can start or confirm departure needs before committing"
         },
         "next_step": {
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
-          "2": "Ask when the guest needs to start"
+          "2": "Offer to check the next tasting start"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -49,7 +56,7 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "Our driver leaves in 30 minutes. Can we still do something meaningful?",
@@ -74,14 +81,16 @@
           "coffee preparation demonstration",
           "coffee tasting"
         ],
-        "lunch_included": false
+        "lunch_included": false,
+        "short_tasting_minutes": 20,
+        "standalone_preparation_demo": "not a listed option; ask the host whether it can be arranged"
       },
       "goal": "Name the included activities; Explain lunch is not included; Check whether the experience matches the guest’s interest",
       "rubric": {
         "answers_request": {
           "0": "Misses the main request or reverses its meaning",
           "1": "Addresses only part of the request",
-          "2": "Name the included activities"
+          "2": "Explain the three included activities, 60-minute duration and no lunch"
         },
         "factual_accuracy": {
           "0": "Contradicts facts or invents a promise, price, policy or safety claim",
@@ -91,12 +100,17 @@
         "clarifies_unknowns": {
           "0": "Guesses a missing detail or ignores necessary clarification",
           "1": "Identifies the gap but does not ask a useful question or offer a check",
-          "2": "Explain lunch is not included"
+          "2": "Check the guest’s interests; do not invent an uncertainty if the question is already answered"
         },
         "next_step": {
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
-          "2": "Check whether the experience matches the guest’s interest"
+          "2": "Invite the guest to choose the tour or ask the host about a standalone demo"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -112,7 +126,7 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "What actually happens on the tour? Is lunch included?",
@@ -133,14 +147,18 @@
       "facts": {
         "full_tour_minutes": 60,
         "short_tasting_minutes": 20,
-        "extension_available": "unknown"
+        "extension_available": "not approved; ask the host whether a 15:25 finish is possible",
+        "scheduled_start": "14:00",
+        "scheduled_finish": "15:00",
+        "guest_arrival": "14:25",
+        "short_option": "20-minute tasting can fit before 15:00; confirm the guest wants to switch"
       },
       "goal": "Acknowledge delay without blaming; Explain that the full activity cannot be compressed without changing it; Offer to discuss the short option or check an extension",
       "rubric": {
         "answers_request": {
           "0": "Misses the main request or reverses its meaning",
           "1": "Addresses only part of the request",
-          "2": "Acknowledge delay without blaming"
+          "2": "Explain that starting at 14:25 cannot fit a 60-minute tour before 15:00"
         },
         "factual_accuracy": {
           "0": "Contradicts facts or invents a promise, price, policy or safety claim",
@@ -150,12 +168,17 @@
         "clarifies_unknowns": {
           "0": "Guesses a missing detail or ignores necessary clarification",
           "1": "Identifies the gap but does not ask a useful question or offer a check",
-          "2": "Explain that the full activity cannot be compressed without changing it"
+          "2": "Ask whether the guest prefers a short tasting or wants an extension checked"
         },
         "next_step": {
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
-          "2": "Offer to discuss the short option or check an extension"
+          "2": "Offer the 20-minute option or ask the host about a 15:25 finish without promising it"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -171,7 +194,7 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "We are 25 minutes late. Can you keep the full tour and still finish at the original time?",
@@ -193,14 +216,15 @@
         "full_tour_minutes": 60,
         "short_tasting_minutes": 20,
         "rest_seating": "at tasting area",
-        "custom_route": "not confirmed"
+        "custom_route": "requires the guide to confirm a route and duration before agreeing",
+        "tasting_location": "seated area beside the entrance; no farm walk required"
       },
       "goal": "Ask about preferred pace without medical assumptions; Explain known short option and seating; Check any route adaptation before promising it",
       "rubric": {
         "answers_request": {
           "0": "Misses the main request or reverses its meaning",
           "1": "Addresses only part of the request",
-          "2": "Ask about preferred pace without medical assumptions"
+          "2": "Offer the seated 20-minute tasting and acknowledge the requested pace"
         },
         "factual_accuracy": {
           "0": "Contradicts facts or invents a promise, price, policy or safety claim",
@@ -210,12 +234,17 @@
         "clarifies_unknowns": {
           "0": "Guesses a missing detail or ignores necessary clarification",
           "1": "Identifies the gap but does not ask a useful question or offer a check",
-          "2": "Explain known short option and seating"
+          "2": "Ask what pace or breaks would help without medical assumptions"
         },
         "next_step": {
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
-          "2": "Check any route adaptation before promising it"
+          "2": "Offer to check adaptations with the guide before agreeing"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -230,15 +259,15 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "My child gets tired quickly. Can we take breaks and finish in 40 minutes?",
-          "chat": "coming with 2 kids. one gets tired fast… can we slow down or sit somewhere?"
+          "chat": "My child gets tired quickly. Can we take breaks and finish in 40 minutes?"
         },
         "es": {
-          "clear": "Vamos con dos niños. ¿Se puede ir más despacio y sentarnos un rato?",
-          "chat": "Hola… Vamos con dos niños. ¿Se puede ir más despacio y sentarnos un rato?"
+          "clear": "Mi hijo se cansa rápido. ¿Podemos descansar y terminar en 40 minutos?",
+          "chat": "Mi hijo se cansa rápido. ¿Podemos descansar y terminar en 40 minutos?"
         }
       }
     },
@@ -250,8 +279,14 @@
       "guest": "We loved learning how you prepare coffee. Could we come back just for that part?",
       "facts": {
         "standard_tour_minutes": 60,
-        "custom_demonstration": "not yet offered",
-        "availability": "unknown"
+        "custom_demonstration": "not a listed standalone activity; host must approve a new arrangement",
+        "availability": "host checks the booking diary once the group provides a date and time",
+        "includes": [
+          "farm walk",
+          "coffee preparation demonstration",
+          "coffee tasting"
+        ],
+        "next_step": "collect date, group size and desired duration, then ask the host"
       },
       "goal": "Recognize the specific valued activity; Explore desired group size and duration; Treat a new product as a proposal to confirm",
       "rubric": {
@@ -274,6 +309,11 @@
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
           "2": "Treat a new product as a proposal to confirm"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -288,7 +328,7 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "We loved learning how you prepare coffee. Could we come back just for that part?",
@@ -307,16 +347,17 @@
       "title": "Weather changes the experience",
       "guest": "It is raining hard. Will we still walk the slope, or can we do something indoors?",
       "facts": {
-        "outdoor_route_status": "must be checked by operator",
+        "outdoor_route_status": "guide has not inspected the wet slope; wait for the guide’s check before deciding to walk",
         "sheltered_tasting_minutes": 20,
-        "weather_forecast": "unavailable offline"
+        "weather_forecast": "no current forecast available; do not predict when rain will stop",
+        "sheltered_option": "covered tasting area beside the entrance; no outdoor slope walk required"
       },
       "goal": "Avoid inventing a weather forecast or route safety decision; Describe the sheltered option; Check route conditions before deciding",
       "rubric": {
         "answers_request": {
           "0": "Misses the main request or reverses its meaning",
           "1": "Addresses only part of the request",
-          "2": "Avoid inventing a weather forecast or route safety decision"
+          "2": "Explain the covered 20-minute tasting as an alternative"
         },
         "factual_accuracy": {
           "0": "Contradicts facts or invents a promise, price, policy or safety claim",
@@ -326,12 +367,17 @@
         "clarifies_unknowns": {
           "0": "Guesses a missing detail or ignores necessary clarification",
           "1": "Identifies the gap but does not ask a useful question or offer a check",
-          "2": "Describe the sheltered option"
+          "2": "Check whether the guest wants the covered option; leave slope conditions for the guide to inspect"
         },
         "next_step": {
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
-          "2": "Check route conditions before deciding"
+          "2": "Offer the sheltered option or wait for the guide’s route check"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -347,7 +393,7 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "It is raining hard. Will we still walk the slope, or can we do something indoors?",
@@ -368,14 +414,16 @@
       "facts": {
         "meeting_point": "farm entrance beside the blue gate",
         "landmark": "cooperative building",
-        "relative_position": "entrance opposite the cooperative building"
+        "relative_position": "entrance opposite the cooperative building",
+        "arrival_instruction": "ask the taxi to stop at the blue farm gate opposite the cooperative building",
+        "next_step": "if the guest cannot see the cooperative, ask for a visible landmark before giving further directions"
       },
       "goal": "Use the verified landmark and gate; Give a short arrival instruction; Check whether the guest can identify the landmark",
       "rubric": {
         "answers_request": {
           "0": "Misses the main request or reverses its meaning",
           "1": "Addresses only part of the request",
-          "2": "Use the verified landmark and gate"
+          "2": "Give the blue gate and cooperative landmark"
         },
         "factual_accuracy": {
           "0": "Contradicts facts or invents a promise, price, policy or safety claim",
@@ -385,12 +433,17 @@
         "clarifies_unknowns": {
           "0": "Guesses a missing detail or ignores necessary clarification",
           "1": "Identifies the gap but does not ask a useful question or offer a check",
-          "2": "Give a short arrival instruction"
+          "2": "Check whether the guest can see the cooperative"
         },
         "next_step": {
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
-          "2": "Check whether the guest can identify the landmark"
+          "2": "Give the taxi drop-off instruction without inventing a route"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -405,7 +458,7 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "My maps will not load. Where should the taxi drop us?",
@@ -425,14 +478,15 @@
       "guest": "We are at a red gate near some fields. Nobody is here. Where are you?",
       "facts": {
         "meeting_point": "blue gate opposite cooperative building",
-        "route_from_red_gate": "unknown"
+        "route_from_red_gate": "red gate location is not identified; ask for a visible landmark and check with the guide",
+        "next_step": "ask the guest to stay at their current location while the guide checks; do not direct them across fields"
       },
       "goal": "Acknowledge confusion; State the known meeting point; Ask for a visible landmark instead of guessing a route",
       "rubric": {
         "answers_request": {
           "0": "Misses the main request or reverses its meaning",
           "1": "Addresses only part of the request",
-          "2": "Acknowledge confusion"
+          "2": "Acknowledge confusion and give the known blue-gate meeting point"
         },
         "factual_accuracy": {
           "0": "Contradicts facts or invents a promise, price, policy or safety claim",
@@ -442,12 +496,17 @@
         "clarifies_unknowns": {
           "0": "Guesses a missing detail or ignores necessary clarification",
           "1": "Identifies the gap but does not ask a useful question or offer a check",
-          "2": "State the known meeting point"
+          "2": "Ask for a landmark to identify the red gate"
         },
         "next_step": {
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
-          "2": "Ask for a visible landmark instead of guessing a route"
+          "2": "Offer to check with the guide while the guest waits; do not invent directions"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -462,7 +521,7 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "We are at a red gate near some fields. Nobody is here. Where are you?",
@@ -482,15 +541,16 @@
       "guest": "We lose phone signal on the way. What should we agree before leaving?",
       "facts": {
         "meeting_point": "blue gate opposite cooperative building",
-        "arrival_time": "not agreed",
-        "late_arrival_plan": "must be agreed"
+        "arrival_time": "ask the guest to agree an arrival time before leaving",
+        "late_arrival_plan": "host can wait at the blue gate for 15 minutes after the agreed time; after that, meet at the cooperative reception",
+        "cooperative_reception": "staffed 09:00–17:00; reception can contact the host in person"
       },
       "goal": "Confirm meeting point; Ask for arrival time; Agree on an offline contingency rather than assuming messages arrive",
       "rubric": {
         "answers_request": {
           "0": "Misses the main request or reverses its meaning",
           "1": "Addresses only part of the request",
-          "2": "Confirm meeting point"
+          "2": "Give the blue gate meeting point and the available offline backup plan"
         },
         "factual_accuracy": {
           "0": "Contradicts facts or invents a promise, price, policy or safety claim",
@@ -500,19 +560,24 @@
         "clarifies_unknowns": {
           "0": "Guesses a missing detail or ignores necessary clarification",
           "1": "Identifies the gap but does not ask a useful question or offer a check",
-          "2": "Ask for arrival time"
+          "2": "Ask for an arrival time within reception hours"
         },
         "next_step": {
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
-          "2": "Agree on an offline contingency rather than assuming messages arrive"
+          "2": "Agree on the 15-minute wait and cooperative reception fallback"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
         "Promise live tracking or automatic messaging"
       ],
       "followup": "If we are late, will somebody wait?",
-      "reference_response_es": "Acordemos la hora y el punto de encuentro en la puerta azul frente a la cooperativa. También debemos acordar qué hacer si se retrasan sin señal.",
+      "reference_response_es": "Nos vemos en la puerta azul frente a la cooperativa. ¿A qué hora llegarían? Podemos esperar allí 15 minutos después de la hora acordada; luego vayan a recepción de la cooperativa, abierta de 9 a 17, donde pueden avisar a la persona anfitriona. ¿Les sirve ese plan?",
       "weak_response": "Message me and I will track you.",
       "synthetic": true,
       "source_ids": [
@@ -520,7 +585,7 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "We lose phone signal on the way. What should we agree before leaving?",
@@ -539,9 +604,10 @@
       "title": "Describe access without making assumptions",
       "guest": "My father uses a walking stick. Are there steps or uneven ground?",
       "facts": {
-        "farm_walk": "uneven slope",
-        "tasting_area": "near entrance",
-        "step_free_access": "not verified"
+        "farm_walk": "uneven uphill path; no handrail along the farm walk",
+        "tasting_area": "seated covered area near the entrance",
+        "step_free_access": "entrance-to-tasting path has not been checked for steps; ask the host to inspect it before confirming",
+        "next_step": "ask which access details matter to the guest and check them with the host"
       },
       "goal": "Describe the uneven slope; Ask what access information would help; Check unverified step-free details; mention the nearby tasting area without claiming accessibility",
       "rubric": {
@@ -564,6 +630,11 @@
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
           "2": "Check unverified step-free details; mention the nearby tasting area without claiming accessibility"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -579,15 +650,15 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "My father uses a walking stick. Are there steps or uneven ground?",
-          "chat": "mum can’t walk far. is the entrance flat? not sure what to expect"
+          "chat": "My father uses a walking stick. Are there steps or uneven ground?"
         },
         "es": {
-          "clear": "Mi mamá tiene dificultad para caminar. ¿Cómo es el camino de entrada?",
-          "chat": "Hola… Mi mamá tiene dificultad para caminar. ¿Cómo es el camino de entrada?"
+          "clear": "Mi padre usa bastón. ¿Hay escalones o terreno irregular?",
+          "chat": "Mi padre usa bastón. ¿Hay escalones o terreno irregular?"
         }
       }
     },
@@ -596,18 +667,20 @@
       "skill": "directions",
       "difficulty": 3,
       "title": "Two parts of a group arrive separately",
-      "guest": "Half our group is already at the farm and half is coming by bus. Where should everyone meet?",
+      "guest": "Half our group is at the farm and half is coming by bus. Where should everyone meet?",
       "facts": {
         "meeting_point": "blue gate opposite cooperative building",
-        "bus_stop_route": "unknown",
-        "group_arrival_times": "unknown"
+        "bus_stop_route": "bus stop not identified; ask which stop and have the host check the route",
+        "group_arrival_times": "ask each group’s expected arrival time",
+        "waiting_area": "seats inside the blue gate; do not ask guests to wait on the road",
+        "contact_arrangement": "ask each group to agree on one contact person; do not share phone numbers without permission"
       },
       "goal": "Give a single shared meeting point; Clarify arrival times and group contact arrangement; Do not invent bus stop directions",
       "rubric": {
         "answers_request": {
           "0": "Misses the main request or reverses its meaning",
           "1": "Addresses only part of the request",
-          "2": "Give a single shared meeting point"
+          "2": "Give one shared meeting point and the seating inside the gate"
         },
         "factual_accuracy": {
           "0": "Contradicts facts or invents a promise, price, policy or safety claim",
@@ -617,12 +690,17 @@
         "clarifies_unknowns": {
           "0": "Guesses a missing detail or ignores necessary clarification",
           "1": "Identifies the gap but does not ask a useful question or offer a check",
-          "2": "Clarify arrival times and group contact arrangement"
+          "2": "Ask arrival times, bus stop if directions are needed, and agreed contact arrangement"
         },
         "next_step": {
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
-          "2": "Do not invent bus stop directions"
+          "2": "Coordinate waiting inside the gate and check unknown directions with the host"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -638,15 +716,15 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
-          "clear": "Half our group is already at the farm and half is coming by bus. Where should everyone meet?",
-          "chat": "i’m here but my friends are in another car. should i wait by the road?"
+          "clear": "Half our group is at the farm and half is coming by bus. Where should everyone meet?",
+          "chat": "Half our group is at the farm and half is coming by bus. Where should everyone meet?"
         },
         "es": {
-          "clear": "Yo ya llegué, pero mis amigos vienen en otro coche. ¿Dónde esperamos?",
-          "chat": "Hola… Yo ya llegué, pero mis amigos vienen en otro coche. ¿Dónde esperamos?"
+          "clear": "La mitad del grupo está en la finca y la otra mitad viene en bus. ¿Dónde nos reunimos?",
+          "chat": "La mitad del grupo está en la finca y la otra mitad viene en bus. ¿Dónde nos reunimos?"
         }
       }
     },
@@ -657,15 +735,16 @@
       "title": "A guest forgot a bag",
       "guest": "I think I left my bag after the tour. Can you send it to my hotel?",
       "facts": {
-        "bag_found": "not checked",
-        "delivery_service": "not confirmed"
+        "bag_found": "host has not checked the tasting area or lost-property shelf yet",
+        "delivery_service": "no delivery service is arranged; host can discuss collection after finding the item and confirming ownership",
+        "checking_process": "ask for visit time and distinguishing details, then ask the host to check the tasting seats and lost-property shelf"
       },
       "goal": "Ask for a description and visit time; Offer to check for the item; Agree on a next step only after ownership and delivery are confirmed",
       "rubric": {
         "answers_request": {
           "0": "Misses the main request or reverses its meaning",
           "1": "Addresses only part of the request",
-          "2": "Ask for a description and visit time"
+          "2": "Acknowledge the missing bag and delivery request without claiming it was found"
         },
         "factual_accuracy": {
           "0": "Contradicts facts or invents a promise, price, policy or safety claim",
@@ -675,12 +754,17 @@
         "clarifies_unknowns": {
           "0": "Guesses a missing detail or ignores necessary clarification",
           "1": "Identifies the gap but does not ask a useful question or offer a check",
-          "2": "Offer to check for the item"
+          "2": "Ask visit time and distinguishing details to support identification"
         },
         "next_step": {
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
-          "2": "Agree on a next step only after ownership and delivery are confirmed"
+          "2": "Offer the concrete search process and discuss collection only after ownership is confirmed"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -696,15 +780,15 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "I think I left my bag after the tour. Can you send it to my hotel?",
-          "chat": "hi think i left my bag there earlier… did anyone find one?"
+          "chat": "I think I left my bag after the tour. Can you send it to my hotel?"
         },
         "es": {
-          "clear": "Creo que dejé mi bolso después de la visita. ¿Lo han encontrado?",
-          "chat": "Hola… Creo que dejé mi bolso después de la visita. ¿Lo han encontrado?"
+          "clear": "Creo que dejé mi bolso después del recorrido. ¿Pueden enviarlo a mi hotel?",
+          "chat": "Creo que dejé mi bolso después del recorrido. ¿Pueden enviarlo a mi hotel?"
         }
       }
     },
@@ -713,18 +797,20 @@
       "skill": "expectations",
       "difficulty": 1,
       "title": "An incomplete booking inquiry",
-      "guest": "Can the four of us come tomorrow afternoon? How much is it?",
+      "guest": "Can four of us adults come tomorrow afternoon? Maybe five. How much is it?",
       "facts": {
-        "availability": "unknown",
-        "price": "not recorded",
-        "booking_status": "unconfirmed"
+        "availability": "booking diary must be checked by the host for the requested date and time",
+        "price": "full tour: COP 40,000 per adult; quoted price does not confirm availability",
+        "booking_status": "inquiry only; host must confirm the slot and final party size",
+        "offered_start_times": "10:00, 13:00 or 15:00, subject to the booking diary",
+        "guest_group": "adults; exact number is four or five and must be clarified"
       },
-      "goal": "Ask for the calendar date and preferred time; State that availability and price need confirmation; Do not turn the inquiry into a booking",
+      "goal": "Explain the listed adult price without confirming a booking; Ask the calendar date, preferred listed start time and whether four or five adults will attend; Offer to check the diary with the host before confirming",
       "rubric": {
         "answers_request": {
           "0": "Misses the main request or reverses its meaning",
           "1": "Addresses only part of the request",
-          "2": "Ask for the calendar date and preferred time"
+          "2": "State the COP 40,000 adult rate without confirming availability"
         },
         "factual_accuracy": {
           "0": "Contradicts facts or invents a promise, price, policy or safety claim",
@@ -734,12 +820,17 @@
         "clarifies_unknowns": {
           "0": "Guesses a missing detail or ignores necessary clarification",
           "1": "Identifies the gap but does not ask a useful question or offer a check",
-          "2": "State that availability and price need confirmation"
+          "2": "Ask date, listed start time and final number of adults"
         },
         "next_step": {
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
-          "2": "Do not turn the inquiry into a booking"
+          "2": "Offer to check the host’s diary before confirming a slot"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -747,7 +838,7 @@
         "Confirm unavailable calendar information"
       ],
       "followup": "So are we booked for 3?",
-      "reference_response_es": "¿Qué fecha y hora prefieren? Son cuatro personas; necesito comprobar disponibilidad y precio antes de confirmar la reserva.",
+      "reference_response_es": "El recorrido cuesta 40.000 COP por adulto. ¿Qué fecha prefieren, serían cuatro o cinco adultos, y les sirve a las 13:00 o a las 15:00? Consulto disponibilidad con la persona anfitriona antes de confirmar.",
       "weak_response": "Yes, four people are booked at 3 for 10 dollars.",
       "synthetic": true,
       "source_ids": [
@@ -755,15 +846,15 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
-          "clear": "Can the four of us come tomorrow afternoon? How much is it?",
-          "chat": "can 4 of us come tomorrow afternoon? actually maybe 5. how much?"
+          "clear": "Can four of us adults come tomorrow afternoon? Maybe five. How much is it?",
+          "chat": "Can four of us adults come tomorrow afternoon? Maybe five. How much is it?"
         },
         "es": {
-          "clear": "Somos cuatro… bueno, tal vez cinco. ¿Podemos ir mañana por la tarde? ¿Cuánto cuesta?",
-          "chat": "Hola… Somos cuatro… bueno, tal vez cinco. ¿Podemos ir mañana por la tarde? ¿Cuánto cuesta?"
+          "clear": "¿Podemos ir cuatro adultos mañana por la tarde? Tal vez seamos cinco. ¿Cuánto cuesta?",
+          "chat": "¿Podemos ir cuatro adultos mañana por la tarde? Tal vez seamos cinco. ¿Cuánto cuesta?"
         }
       }
     },
@@ -771,19 +862,22 @@
       "id": "price_pressure",
       "skill": "expectations",
       "difficulty": 2,
-      "title": "A visitor asks for an unverified discount",
-      "guest": "The guide said children are free. Can you confirm the total for two adults and three children?",
+      "title": "Explain family pricing and a claimed discount",
+      "guest": "The guide said children are free. What is the total for two adults and three children?",
       "facts": {
-        "adult_rate": "unknown",
-        "child_policy": "unknown",
-        "guide_statement": "unverified"
+        "adult_rate": "COP 40,000 per person aged 13 or older",
+        "child_policy": "ages 6–12: COP 20,000 each; under 6: free",
+        "guide_statement": "children-free claim is not an approved discount; use the rate card above",
+        "needed_information": "ages of the three children",
+        "discount_authority": "only the host can approve exceptions; ask the host if the guest disputes the rate",
+        "payment": "pay the host at farm reception after confirming the amount; guide is not authorized to collect"
       },
-      "goal": "Acknowledge the quoted claim without accepting it as policy; Clarify needed ages if relevant; Check rates and policy before giving a total",
+      "goal": "Explain the listed adult and child rates politely; Ask the three children’s ages before calculating a total; Check any claimed exception with the host rather than accepting it",
       "rubric": {
         "answers_request": {
           "0": "Misses the main request or reverses its meaning",
           "1": "Addresses only part of the request",
-          "2": "Acknowledge the quoted claim without accepting it as policy"
+          "2": "Explain the listed rates respectfully and distinguish the claimed discount from policy"
         },
         "factual_accuracy": {
           "0": "Contradicts facts or invents a promise, price, policy or safety claim",
@@ -793,12 +887,17 @@
         "clarifies_unknowns": {
           "0": "Guesses a missing detail or ignores necessary clarification",
           "1": "Identifies the gap but does not ask a useful question or offer a check",
-          "2": "Clarify needed ages if relevant"
+          "2": "Ask all three children’s ages before calculating the total"
         },
         "next_step": {
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
-          "2": "Check rates and policy before giving a total"
+          "2": "Offer to check a disputed exception with the host; direct payment to reception if asked"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -806,7 +905,7 @@
         "Calculate from invented rates"
       ],
       "followup": "Can I just pay the guide now?",
-      "reference_response_es": "Necesito comprobar las tarifas y la política para menores antes de confirmar el total. ¿Qué edades tienen? La información del guía aún no está confirmada.",
+      "reference_response_es": "La tarifa es de 40.000 COP por adulto y por persona de 13 años o más. De 6 a 12 años son 20.000 COP; los menores de 6 no pagan. ¿Qué edades tienen los tres niños? Si el guía ofreció otra tarifa, la consulto con la persona anfitriona antes de confirmar el total.",
       "weak_response": "Yes, children are free; pay the guide.",
       "synthetic": true,
       "source_ids": [
@@ -814,15 +913,15 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
-          "clear": "The guide said children are free. Can you confirm the total for two adults and three children?",
-          "chat": "someone said kids are free? we’re 2 adults and kids, what’s the total?"
+          "clear": "The guide said children are free. What is the total for two adults and three children?",
+          "chat": "The guide said children are free. What is the total for two adults and three children?"
         },
         "es": {
-          "clear": "Nos dijeron que los niños no pagan. ¿Cuánto sería para toda la familia?",
-          "chat": "Hola… Nos dijeron que los niños no pagan. ¿Cuánto sería para toda la familia?"
+          "clear": "El guía dijo que los niños no pagan. ¿Cuánto cuesta para dos adultos y tres niños?",
+          "chat": "El guía dijo que los niños no pagan. ¿Cuánto cuesta para dos adultos y tres niños?"
         }
       }
     },
@@ -833,15 +932,21 @@
       "title": "A guest asks about ingredients",
       "guest": "I cannot eat dairy. Is the tasting guaranteed dairy-free?",
       "facts": {
-        "ingredients": "not verified",
-        "cross_contact_controls": "not verified"
+        "ingredients": "coffee uses coffee beans and water; biscuit ingredients must be checked on the current package",
+        "cross_contact_controls": "dairy-free preparation is not verified; shared utensils may be used",
+        "tasting_menu": [
+          "black coffee brewed with water",
+          "optional milk served separately",
+          "packaged biscuits"
+        ],
+        "next_step": "ask which items they want, then ask the preparer to check labels and utensils before serving; do not guarantee allergen-free food"
       },
       "goal": "Ask which items the guest wants to try; Explain that ingredients and preparation need checking; Do not guarantee dietary safety or offer medical advice",
       "rubric": {
         "answers_request": {
           "0": "Misses the main request or reverses its meaning",
           "1": "Addresses only part of the request",
-          "2": "Ask which items the guest wants to try"
+          "2": "Describe the known menu and distinguish ingredients from unverified cross-contact"
         },
         "factual_accuracy": {
           "0": "Contradicts facts or invents a promise, price, policy or safety claim",
@@ -851,19 +956,24 @@
         "clarifies_unknowns": {
           "0": "Guesses a missing detail or ignores necessary clarification",
           "1": "Identifies the gap but does not ask a useful question or offer a check",
-          "2": "Explain that ingredients and preparation need checking"
+          "2": "Ask which items the guest wants and identify what must be checked"
         },
         "next_step": {
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
-          "2": "Do not guarantee dietary safety or offer medical advice"
+          "2": "Offer to check package labels and utensils with the preparer before serving"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
         "Guarantee allergen-free preparation without verification"
       ],
       "followup": "A little milk is not a problem, right?",
-      "reference_response_es": "Debemos comprobar los ingredientes y la preparación antes de confirmar. No puedo garantizar que sea libre de lácteos. ¿Qué productos desea probar?",
+      "reference_response_es": "El café negro lleva café y agua; la leche se sirve aparte. Hay que revisar los ingredientes de las galletas y los utensilios con quien prepara la degustación. No puedo garantizar ausencia de lácteos. ¿Qué productos desea probar?",
       "weak_response": "Yes, a little milk is harmless.",
       "synthetic": true,
       "source_ids": [
@@ -871,15 +981,15 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "I cannot eat dairy. Is the tasting guaranteed dairy-free?",
-          "chat": "quick question about the food… what goes into it? need to check before we try"
+          "chat": "I cannot eat dairy. Is the tasting guaranteed dairy-free?"
         },
         "es": {
-          "clear": "Antes de probar la comida, ¿nos pueden decir qué ingredientes lleva?",
-          "chat": "Hola… Antes de probar la comida, ¿nos pueden decir qué ingredientes lleva?"
+          "clear": "No puedo consumir lácteos. ¿Pueden garantizar que la degustación no contiene lácteos?",
+          "chat": "No puedo consumir lácteos. ¿Pueden garantizar que la degustación no contiene lácteos?"
         }
       }
     },
@@ -891,7 +1001,8 @@
       "guest": "We waited at the wrong gate for 20 minutes. This was really frustrating.",
       "facts": {
         "meeting_point": "blue gate opposite cooperative building",
-        "refund_authority": "not established"
+        "refund_authority": "only the host can decide refunds; no refund approved for this case",
+        "available_next_step": "offer to meet the guest at the blue gate and ask the host about the remaining visit"
       },
       "goal": "Acknowledge the specific delay and inconvenience; Clarify what directions were received without blaming; Offer a concrete authorized next step; do not promise a refund",
       "rubric": {
@@ -914,6 +1025,11 @@
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
           "2": "Offer a concrete authorized next step; do not promise a refund"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -929,15 +1045,15 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "We waited at the wrong gate for 20 minutes. This was really frustrating.",
-          "chat": "we got lost and now we’re late. the directions weren’t clear. what happens now?"
+          "chat": "We waited at the wrong gate for 20 minutes. This was really frustrating."
         },
         "es": {
-          "clear": "Dimos muchas vueltas y llegamos tarde. Las indicaciones no estaban claras. ¿Qué hacemos ahora?",
-          "chat": "Hola… Dimos muchas vueltas y llegamos tarde. Las indicaciones no estaban claras. ¿Qué hacemos ahora?"
+          "clear": "Esperamos 20 minutos en la puerta equivocada. Fue muy frustrante.",
+          "chat": "Esperamos 20 minutos en la puerta equivocada. Fue muy frustrante."
         }
       }
     },
@@ -949,14 +1065,16 @@
       "guest": "Can I photograph your family and post the pictures on my travel page?",
       "facts": {
         "photo_policy": "ask each person before taking or sharing identifiable images",
-        "private_areas": "home interior is not part of the tour"
+        "private_areas": "home interior is not part of the tour",
+        "photo_alternative": "ask permission before photographing people; coffee tools can be photographed without people in the frame",
+        "consent_status": "no family member has given permission yet"
       },
       "goal": "Explain consent before photography and posting; Respect private areas; Offer to ask without speaking for family members",
       "rubric": {
         "answers_request": {
           "0": "Misses the main request or reverses its meaning",
           "1": "Addresses only part of the request",
-          "2": "Explain consent before photography and posting"
+          "2": "Explain individual consent for taking and posting photos and the private-home boundary"
         },
         "factual_accuracy": {
           "0": "Contradicts facts or invents a promise, price, policy or safety claim",
@@ -966,12 +1084,17 @@
         "clarifies_unknowns": {
           "0": "Guesses a missing detail or ignores necessary clarification",
           "1": "Identifies the gap but does not ask a useful question or offer a check",
-          "2": "Respect private areas"
+          "2": "Ask whose permission is needed; do not assume background appearance is consent"
         },
         "next_step": {
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
-          "2": "Offer to ask without speaking for family members"
+          "2": "Offer to ask each person or photograph tools without people"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -987,7 +1110,7 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "Can I photograph your family and post the pictures on my travel page?",
@@ -1008,7 +1131,8 @@
       "facts": {
         "full_tour_minutes": 60,
         "short_tasting_minutes": 20,
-        "short_walk": "not yet designed"
+        "short_walk": "not designed or approved; collect the guest’s preferred duration for the host to consider",
+        "short_tasting_location": "seated area near the entrance; no farm walk included"
       },
       "goal": "Separate praise from the duration concern; Ask which part they would keep and desired duration; Describe the existing tasting separately from a proposed shorter walk",
       "rubric": {
@@ -1031,6 +1155,11 @@
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
           "2": "Describe the existing tasting separately from a proposed shorter walk"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -1046,7 +1175,7 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "The tasting was lovely but the walk was longer than expected. Can you do a shorter version next time?",
@@ -1065,8 +1194,8 @@
       "title": "Respond to an unhappy guest",
       "guest": "The welcome felt unfriendly. I felt like I was bothering you. Can we talk about it?",
       "facts": {
-        "available_next_step": "listen to the guest and offer to check the concern with the host",
-        "refund_authority": "not established"
+        "available_next_step": "listen, ask what happened, and offer to bring the host over to discuss it",
+        "refund_authority": "only the host can approve a refund or compensation; none is approved in this exercise"
       },
       "goal": "Acknowledge the guest’s concern respectfully; Ask what happened without blaming or disputing their experience; Offer to listen and check with the host; do not promise compensation",
       "rubric": {
@@ -1089,6 +1218,11 @@
           "0": "No usable next step, or an unauthorized commitment",
           "1": "Vague next step or unclear ownership",
           "2": "Offer to listen and check the concern with the host without promising compensation"
+        },
+        "customer_tone": {
+          "0": "Blames, insults or dismisses the guest, or writes about the guest instead of speaking to them",
+          "1": "Speaks to the guest but sounds abrupt or does not acknowledge their concern",
+          "2": "Speaks directly to the guest with respectful, clear and situation-appropriate language"
         }
       },
       "critical_errors": [
@@ -1104,7 +1238,7 @@
         "ILO-RMCS",
         "SUSTOUR-HOPS"
       ],
-      "source_note": "Original synthetic dialogue; sources inform competency design, not customer quotations.",
+      "source_note": "Original synthetic dialogue and fictional business facts for practice; sources inform competency design, not real operator prices, policies or customer quotations.",
       "guest_variants": {
         "en": {
           "clear": "The welcome felt unfriendly. I felt like I was bothering you. Can we talk about it?",

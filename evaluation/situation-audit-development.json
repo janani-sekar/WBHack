@@ -1,0 +1,34 @@
+[
+  {
+    "scenario": "price_pressure",
+    "reply": "The listed rate is COP 40,000 for adults and anyone aged 13 or older. Children aged 6 to 12 pay COP 20,000, and under 6s are free. What ages are your three children? I can check the discount your guide mentioned with the host before confirming your total.",
+    "assessment": {
+      "answers_request": 2,
+      "clarifies_unknowns": 2,
+      "customer_tone": 2,
+      "evidence_quote": "What ages are your three children? I can check the discount your guide mentioned with the host before confirming your total.",
+      "factual_accuracy": 2,
+      "improvement_local": "You met all five criteria for this reply. Try a different situation to practice transferring this skill.",
+      "next_step": 2,
+      "strength_local": "Clarifies children's age range and offers to verify the guide's claim with the host.",
+      "uncertain": false
+    },
+    "issue": null
+  },
+  {
+    "scenario": "booking_ambiguous",
+    "reply": "The tour is COP 40,000 per adult. Which calendar date do you mean, would 13:00 or 15:00 suit you, and will there be four or five adults? I will check the host’s diary before confirming a booking.",
+    "assessment": {
+      "answers_request": 2,
+      "clarifies_unknowns": 2,
+      "customer_tone": 2,
+      "evidence_quote": "The tour is COP 40,000 per adult.",
+      "factual_accuracy": 2,
+      "improvement_local": "You met all five criteria for this reply. Try a different situation to practice transferring this skill.",
+      "next_step": 2,
+      "strength_local": "States adult price clearly without confirming availability.",
+      "uncertain": false
+    },
+    "issue": null
+  }
+]
