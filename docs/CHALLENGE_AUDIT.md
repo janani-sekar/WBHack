@@ -28,7 +28,7 @@ Do not add points for phone compatibility merely because a quantized model looks
 
 ## Strongest positioning
 
-“Welcome helps a small tourism operator turn guest feedback into their next practice conversation, in their language and without an Internet connection after setup.”
+“guest-i-mate helps a small tourism operator turn guest feedback into their next practice conversation, in their language and without an Internet connection after setup.”
 
 Lead with learning from visitor feedback, a workflow explicitly named in Annex C. Training is how the operator acts on that insight. Avoid positioning this as a generic chatbot, an autonomous business manager, or a proven income intervention.
 

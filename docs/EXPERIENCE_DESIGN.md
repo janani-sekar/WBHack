@@ -1,6 +1,6 @@
-# Welcome: a coach for everyday hosting
+# guest-i-mate: a coach for everyday hosting
 
-Design pass: 3 October 2026. Working name, not a final brand decision.
+Design pass: 3 October 2026. Product name: guest-i-mate (formerly the working name "Welcome").
 
 ## Start with the operator's day
 

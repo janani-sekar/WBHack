@@ -10,7 +10,7 @@ EXCLUDED_PARTS = {'private', '__pycache__', '.venv', 'node_modules', 'build', '.
 ALLOWED_SUFFIXES = {'.py', '.md', '.json', '.html', '.txt'}
 
 def build(destination=None):
-    target = Path(destination) if destination else ROOT / 'dist/welcome-hospitality-demo.zip'
+    target = Path(destination) if destination else ROOT / 'dist/guest-i-mate-demo.zip'
     target.parent.mkdir(parents=True, exist_ok=True)
     paths = set()
     for directory in ALLOWED_DIRS:
@@ -26,10 +26,10 @@ def build(destination=None):
             name = p.relative_to(ROOT).as_posix()
             data = p.read_bytes()
             manifest[name] = hashlib.sha256(data).hexdigest()
-            archive.writestr('welcome-hospitality-demo/' + name, data)
-        archive.writestr('welcome-hospitality-demo/PACKAGE-MANIFEST.json', json.dumps(manifest, indent=2))
-        archive.writestr('welcome-hospitality-demo/START-HERE.txt',
-            'Welcome - Hospitality Coach source demo\n\n'
+            archive.writestr('guest-i-mate-demo/' + name, data)
+        archive.writestr('guest-i-mate-demo/PACKAGE-MANIFEST.json', json.dumps(manifest, indent=2))
+        archive.writestr('guest-i-mate-demo/START-HERE.txt',
+            'guest-i-mate - AI Hospitality Coach source demo\n\n'
             'Requires Python 3.11+ and Ollama. In this directory:\n'
             'python3 -m venv .venv\n'
             '.venv/bin/pip install -r requirements-agent.txt\n'

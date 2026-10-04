@@ -109,8 +109,8 @@ The challenge PDF is retained locally for reference and excluded from version co
 
 ## Redesigned browser demo and submission package
 
-Open http://127.0.0.1:8765 after starting the backend. The **Host with Confidence** interface offers a situation catalog, guest conversations with optional hints, review-to-practice, English/Spanish guest selection, and progress. It uses the actual local backend.
+Open http://127.0.0.1:8765 after starting the backend. The **guest-i-mate** web interface offers a situation catalog, guest conversations with optional hints, review-to-practice, English/Spanish guest selection, and progress. It uses the actual local backend.
 
-See [experience design](docs/EXPERIENCE_DESIGN.md) for the operator flow and references, and [submission packaging](docs/SHAREABLE_DEMO.md) for hosting options and limitations. Build a source-only archive with `python3 scripts/package_demo.py`; output: `dist/welcome-hospitality-demo.zip`. This is not yet a hosted public app.
+See [experience design](docs/EXPERIENCE_DESIGN.md) for the operator flow and references, and [submission packaging](docs/SHAREABLE_DEMO.md) for hosting options and limitations. Build a source-only archive with `python3 scripts/package_demo.py`; output: `dist/guest-i-mate-demo.zip`. This is not yet a hosted public app.
 
 Practice now supports three guest exchanges, clear/everyday-message preferences and optional coaching. The Your words tab has been removed. For the larger local model, run `ollama pull qwen3:4b-instruct` then `python3 -m hospitality.server --model qwen3:4b-instruct`. See [practice design and measured limits](docs/PRACTICE_METHOD.md).
