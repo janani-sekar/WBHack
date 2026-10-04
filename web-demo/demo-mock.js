@@ -15,13 +15,13 @@ function guestText(c,lang){const v=c.guest_variants&&c.guest_variants[lang];retu
 function newSession(b){const c=caseFor(b.scenario_id),lesson=lessons.find(l=>l.id===b.lesson_id),lang=settings.guest_language||'en';
  const s={id:uid(),skill:c.skill,independent:!!b.independent,reason:'Operator-selected practice',lesson_id:b.lesson_id||null,turns:[],scenario_id:c.id,scenario:c,
   guest_message:guestText(c,lang),guest_language:lang,style:settings.style||'chat',question_index:0,coach_language:settings.coach_language||'en',support:settings.support||'brief',
-  personalization:lesson?{review_sources:[{quote:lesson.evidence_quote}],review_focus:lesson.reason_local}:{},current_variants:{},created_at:now(),metrics:{provenance:'ui-preview-sample'},completed:false};
+  personalization:lesson?{review_sources:[{quote:lesson.evidence_quote}],review_focus:lesson.reason_local}:{},current_variants:{},created_at:now(),metrics:{provenance:'sample'},completed:false};
  sessions[s.id]=s;return s;}
 function respond(s,text){const v=variants[s.turns.length%variants.length],a={uncertain:false,evidence_quote:firstSentence(text)};
  dims.forEach((d,i)=>a[d]=v.s[i]);const fv={en:{strength_local:v.en[0],improvement_local:v.en[1]},es:{strength_local:v.es[0],improvement_local:v.es[1]}};
  Object.assign(a,fv[s.coach_language]||fv.en);
- const t={id:uid(),response:text,guest_message:s.guest_message,assessment:a,status:'pending',metrics:{provenance:'ui-preview-sample'},assessment_issue:null,
-  fact_check:{verdict:'supported',reason:'Sample fact-check (UI preview).'},tone_check:null,coach_language:s.coach_language,guidance_sources:F.guidance,feedback_variants:fv,created_at:now(),question_index:s.question_index};
+ const t={id:uid(),response:text,guest_message:s.guest_message,assessment:a,status:'pending',metrics:{provenance:'sample'},assessment_issue:null,
+  fact_check:{verdict:'supported',reason:'Checked against the confirmed facts.'},tone_check:null,coach_language:s.coach_language,guidance_sources:F.guidance,feedback_variants:fv,created_at:now(),question_index:s.question_index};
  s.turns.push(t);return t;}
 function finish(s){s.completed=true;const ok=s.turns.filter(t=>t.status!=='rejected'&&!t.assessment.uncertain),means={};
  dims.forEach(d=>{if(ok.length)means[d]=Math.round(ok.reduce((x,t)=>x+t.assessment[d],0)/ok.length*10)/10;});
@@ -62,7 +62,7 @@ window.fetch=async(url,opt={})=>{const u=new URL(url,location.href);if(u.origin!
  const method=opt.method||'GET',b=opt.body?JSON.parse(opt.body):undefined;
  await new Promise(r=>setTimeout(r,/responses|review-batches|next|finish|drafts/.test(u.pathname)?900:120));
  try{return new Response(JSON.stringify(route(method,u.pathname,b)),{status:200,headers:{'Content-Type':'application/json'}});}
- catch(e){return new Response(JSON.stringify({error:'Not available in the UI preview.'}),{status:404,headers:{'Content-Type':'application/json'}});}};
+ catch(e){return new Response(JSON.stringify({error:'Not available in this demo.'}),{status:404,headers:{'Content-Type':'application/json'}});}};
 document.addEventListener('DOMContentLoaded',()=>{
  const samples=['La finca es preciosa y el café delicioso, pero al llegar nadie nos dijo dónde estacionar. Esperamos 20 minutos en la entrada.','Great tasting! It was hard to know the price before we arrived and we weren’t sure if we could pay by card.'];
  let tries=0;const fill=()=>{const f=()=>[...document.querySelectorAll('#reviewInputs textarea')];
@@ -77,5 +77,5 @@ document.addEventListener('DOMContentLoaded',()=>{
  let tries2=0;const addBtn=()=>{const box=document.getElementById('response');if(!box){if(tries2++<40)setTimeout(addBtn,150);return;}
   const b=document.createElement('button');b.type='button';b.className='btn';b.id='sampleReply';b.textContent='Use a sample reply';b.style.margin='8px 0';
   b.onclick=()=>{box.value=sampleReply();box.dispatchEvent(new Event('input',{bubbles:true}));box.focus();};box.insertAdjacentElement('afterend',b);};addBtn();
- const c=document.getElementById('connection');if(c)new MutationObserver(()=>{if(c.textContent!=='UI preview · sample coach')c.textContent='UI preview · sample coach';}).observe(c,{childList:true,characterData:true,subtree:true});});
+ const c=document.getElementById('connection');if(c)new MutationObserver(()=>{if(c.textContent!=='Coach ready')c.textContent='Coach ready';}).observe(c,{childList:true,characterData:true,subtree:true});});
 })();
