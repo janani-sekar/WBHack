@@ -89,7 +89,7 @@ private fun CoachApp(store: CoachStore) {
     }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).imePadding()
             .verticalScroll(scroll).padding(24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
-            Text("HOSPITALITY COACH", color = Pine, fontSize = 12.sp, letterSpacing = 2.sp,
+            Text("GUEST-IMATE", color = Pine, fontSize = 12.sp, letterSpacing = 2.sp,
                 fontWeight = FontWeight.Bold)
             val header: @Composable () -> Unit = {
                 Text(if (store.language == "ta") "வணக்கம்!" else t.welcomeBack, fontSize = 34.sp, fontWeight = FontWeight.Bold)
