@@ -65,7 +65,17 @@ window.fetch=async(url,opt={})=>{const u=new URL(url,location.href);if(u.origin!
  catch(e){return new Response(JSON.stringify({error:'Not available in the UI preview.'}),{status:404,headers:{'Content-Type':'application/json'}});}};
 document.addEventListener('DOMContentLoaded',()=>{
  const samples=['La finca es preciosa y el café delicioso, pero al llegar nadie nos dijo dónde estacionar. Esperamos 20 minutos en la entrada.','Great tasting! It was hard to know the price before we arrived and we weren’t sure if we could pay by card.'];
- let tries=0;const fill=()=>{const add=document.getElementById('addReview'),f=()=>[...document.querySelectorAll('#reviewInputs textarea')];
-  if(!f().length&&tries++<40)return setTimeout(fill,150);if(f().length===1&&add)add.click();f().forEach((t,i)=>{if(!t.value&&samples[i])t.value=samples[i];});};fill();
+ let tries=0;const fill=()=>{const f=()=>[...document.querySelectorAll('#reviewInputs textarea')];
+  if((!f().length||typeof addReview!=='function')&&tries++<40)return setTimeout(fill,150);
+  f().forEach((t,i)=>{if(!t.value&&samples[i])t.value=samples[i];});samples.slice(f().length).forEach(v=>addReview(v));};fill();
+ const fmt=v=>Array.isArray(v)?v.join(', '):String(v);
+ const sampleReply=()=>{const s=typeof session!=='undefined'&&session;if(!s)return '';const es=(s.guest_language||'en')==='es',k=(s.turns||[]).length;
+  const facts=Object.entries((s.scenario&&s.scenario.facts)||{}).slice(0,2).map(([a,b])=>a.replace(/_/g,' ')+': '+fmt(b)).join('; ');
+  const r=es?['¡Gracias por preguntar! Esto es lo que te puedo confirmar: '+facts+'. Si algo no está claro, lo verifico con el equipo y te escribo en 10 minutos.','Buena pregunta. No lo tengo confirmado todavía, así que lo verifico con el equipo y te confirmo en 10 minutos. Mientras tanto, te espero en la entrada principal.','¡Con gusto! Te mando la ubicación y el horario por mensaje para que lo tengas a mano. ¿Necesitas algo más?']
+   :['Thanks for asking! Here is what I can confirm: '+facts+'. If anything is unclear, I will check with the team and message you within 10 minutes.','Good question. I don’t have that confirmed yet, so I’ll check with the team and get back to you in 10 minutes. Meanwhile, I’ll meet you at the main entrance.','Happy to help! I’ll send you the location and times by message so you have them handy. Anything else you need?'];
+  return r[Math.min(k,2)];};
+ let tries2=0;const addBtn=()=>{const box=document.getElementById('response');if(!box){if(tries2++<40)setTimeout(addBtn,150);return;}
+  const b=document.createElement('button');b.type='button';b.className='btn';b.id='sampleReply';b.textContent='Use a sample reply';b.style.margin='8px 0';
+  b.onclick=()=>{box.value=sampleReply();box.dispatchEvent(new Event('input',{bubbles:true}));box.focus();};box.insertAdjacentElement('afterend',b);};addBtn();
  const c=document.getElementById('connection');if(c)new MutationObserver(()=>{if(c.textContent!=='UI preview · sample coach')c.textContent='UI preview · sample coach';}).observe(c,{childList:true,characterData:true,subtree:true});});
 })();
