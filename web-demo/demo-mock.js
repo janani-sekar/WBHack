@@ -64,10 +64,6 @@ window.fetch=async(url,opt={})=>{const u=new URL(url,location.href);if(u.origin!
  try{return new Response(JSON.stringify(route(method,u.pathname,b)),{status:200,headers:{'Content-Type':'application/json'}});}
  catch(e){return new Response(JSON.stringify({error:'Not available in the UI preview.'}),{status:404,headers:{'Content-Type':'application/json'}});}};
 document.addEventListener('DOMContentLoaded',()=>{
- const bar=document.createElement('div');bar.className='demo-banner';
- bar.innerHTML='UI preview — sample responses, no live model. The real app runs Qwen locally on your own computer. <a href="https://github.com/janani-sekar/WBHack" target="_blank" rel="noopener">Source &amp; setup</a>';
- document.body.prepend(bar);
- const st=document.createElement('style');st.textContent='.demo-banner{background:#fff4d6;color:#5a4300;font:14px/1.4 system-ui,sans-serif;padding:8px 16px;text-align:center;border-bottom:1px solid #e8d48a}.demo-banner a{color:inherit;font-weight:600}';document.head.append(st);
  const samples=['La finca es preciosa y el café delicioso, pero al llegar nadie nos dijo dónde estacionar. Esperamos 20 minutos en la entrada.','Great tasting! It was hard to know the price before we arrived and we weren’t sure if we could pay by card.'];
  let tries=0;const fill=()=>{const add=document.getElementById('addReview'),f=()=>[...document.querySelectorAll('#reviewInputs textarea')];
   if(!f().length&&tries++<40)return setTimeout(fill,150);if(f().length===1&&add)add.click();f().forEach((t,i)=>{if(!t.value&&samples[i])t.value=samples[i];});};fill();
