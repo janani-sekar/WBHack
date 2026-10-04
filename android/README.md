@@ -4,9 +4,14 @@ Native Kotlin / Jetpack Compose frontend for the Hospitality Coach planning repo
 
 ## Implemented
 
-- First-run introduction and coaching language: **Español (default)**, தமிழ், English. Spanish also translates the app's screens; Tamil keeps English navigation.
-- **AI practice through the local Qwen backend** (`hospitality.server`): model-generated guest question, feedback (`strength_local`, `improvement_local`, evidence quote, 0–2 checklist), explicit accept/reject before anything counts as progress, model follow-up questions, and approved phrases synced to backend memory.
-- Automatic fallback to the fixed offline practice guide when the backend or model is unavailable (or English is selected, which the backend does not support).
+- First-run introduction and app language: **Español (default)**, தமிழ், English. Spanish also translates the app's screens; Tamil keeps English navigation and is used by the offline guide.
+- **Matches the desktop web UI (`hospitality/ui`) through the local backend** (`hospitality.server`), with five tabs when the coach is connected:
+  - **Home**: recommended next situation from `/learning-plan`, shortcuts to the other tabs.
+  - **Practice**: all public `/curriculum` situations with skill filters and saved review lessons. A practice runs up to three guest messages (`/sessions`, `/responses`, `/next`), with a guest-language toggle (`/sessions/{id}/language`), a coach-feedback language toggle (`/sessions/{id}/coach-language`; scores are unchanged), a "without hints" mode, exercise facts, and goals. Feedback shows the five-criterion scorecard (including `customer_tone`), what worked, the next step, and the evidence quote, plus explicit save/dismiss before anything counts as progress. Unscored replies (`assessment_issue`: `checks_disagree`, `facts_unclear`, `interpretation_unclear`) are shown as grading problems, not failing grades, and cannot be saved. **Finish** shows the `/finish` recap and an editable business-notes draft (`/practice-drafts`, `/drafts/{id}`).
+  - **Reviews**: up to five guest reviews → `/review-batches` (translation and findings) → "Practice similar" approves a lesson (`/batch-lessons`) and starts a practice with synthetic exercise facts.
+  - **Progress**: learning plan per skill, learner memory with source quotes and "stop using this feedback", saved phrases.
+  - **Settings**: practice settings (`/learning-settings`: guest language, message style, coach support). Coach language follows the app language (es/en).
+- Automatic fallback to the fixed offline practice guide (three scenarios, Home / Phrases / Settings) when the backend or model is unavailable.
 - Three scenario cards loaded from the existing `data/sample/scenarios.json` assets.
 - Guest prompt, editable reply, fixed reference guidance, rubric, retry and alternate prompt.
 - Explicitly approved, editable phrases; local persistence and reuse in matching scenarios.
@@ -29,7 +34,7 @@ python3 -m hospitality.server     # from the repo root
 adb reverse tcp:8765 tcp:8765     # after each device connect / emulator boot
 ```
 
-The home screen shows "AI coach connected" or "Offline practice guide". Expect several seconds to a minute per model call.
+The home screen shows "AI coach connected" or "Offline practice guide". Expect several seconds to a minute per model call; a reply makes several model calls (assessment, fact check, then the next guest message), so the app waits up to 5 minutes per request. On a laptop without a GPU, `--model qwen3:1.7b` is much faster than `qwen3:4b-instruct`.
 
 ## Integration boundary and honest demo limits
 
@@ -41,6 +46,6 @@ This is a single-profile prototype. Preferences are app-private but there is no 
 
 ## Verification
 
-Unit tests cover blank-response rejection, preservation of demo facts despite instruction-like input, Spanish/Tamil/English selection, and the backend client against a fake loopback server (scenario→skill mapping, `_local` parsing, no `Origin` header, language updates, error surfacing). A successful Android build and on-device UI testing must be recorded separately; source inspection alone does not establish them.
+Unit tests cover the offline guide (blank-response rejection, preservation of demo facts, Spanish/Tamil/English selection), the backend client against a fake loopback server (curriculum, session/turn/recap parsing, `assessment_issue`, feedback translations, review batches → lessons, learning plan, learner memory, settings writes with `approved`, no `Origin` header, error surfacing), and the scorecard/unscored wording rules shared with the web UI. A successful Android build and on-device UI testing must be recorded separately; source inspection alone does not establish them.
 
-Device checklist: first-run language selection; all three practice/retry flows; rotate while typing; save phrase and force-stop/reopen; insert phrase into matching scenario; delete/reset; test large fonts and Tamil rendering; complete the offline loop in airplane mode; with the backend running, complete an AI round including accept/reject and a follow-up question. Verify on the actual operator's device before making accessibility or performance claims.
+Device checklist: first-run language selection; all three practice/retry flows; rotate while typing; save phrase and force-stop/reopen; insert phrase into matching scenario; delete/reset; test large fonts and Tamil rendering; complete the offline loop in airplane mode; with the backend running, complete a three-reply practice with recap, a review → Practice similar flow, and both language toggles. Verify on the actual operator's device before making accessibility or performance claims.
